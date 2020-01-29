@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.NetworkServer1">
+        <method name="Register">
+            <arg name="uuid" type="s" direction="in"/>
+            <arg name="bridge" type="s" direction="in"/>
+        </method>
+        <method name="Unregister">
+            <arg name="uuid" type="s" direction="in"/>
+        </method>
+    </interface>
+</node>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.GattDescriptor1">
+        <property name="UUID" type="s" access="read"/>
+        <property name="Characteristic" type="o" access="read"/>
+        <property name="Value" type="ay" access="read"/>
+        <property name="Flags" type="as" access="read"/>
+        <method name="ReadValue">
+            <arg name="options" type="a{sv}" direction="in"/>
+            <arg name="value" type="ay" direction="out"/>
+        </method>
+        <method name="WriteValue">
+            <arg name="value" type="ay" direction="in"/>
+            <arg name="options" type="a{sv}" direction="in"/>
+        </method>
+    </interface>
+</node>

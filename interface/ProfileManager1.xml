@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.ProfileManager1">
+        <method name="RegisterProfile">
+            <arg name="profile" type="o" direction="in"/>
+            <arg name="UUID" type="s" direction="in"/>
+            <arg name="options" type="a{sv}" direction="in"/>
+        </method>
+        <method name="UnregisterProfile">
+            <arg name="profile" type="o" direction="in"/>
+        </method>
+    </interface>
+</node>

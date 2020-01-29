@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.Adapter1">
+        <method name="StartDiscovery"/>
+        <method name="SetDiscoveryFilter">
+            <arg name="properties" type="a{sv}" direction="in"/>
+        </method>
+        <method name="StopDiscovery"/>
+        <method name="RemoveDevice">
+            <arg name="device" type="o" direction="in"/>
+        </method>
+        <method name="GetDiscoveryFilters">
+            <arg name="filters" type="as" direction="out"/>
+        </method>
+        <method name="ConnectDevice">
+            <arg name="properties" type="a{sv}" direction="in"/>
+        </method>
+        <property name="Address" type="s" access="read"/>
+        <property name="AddressType" type="s" access="read"/>
+        <property name="Name" type="s" access="read"/>
+        <property name="Alias" type="s" access="readwrite"/>
+        <property name="Class" type="u" access="read"/>
+        <property name="Powered" type="b" access="readwrite"/>
+        <property name="Discoverable" type="b" access="readwrite"/>
+        <property name="DiscoverableTimeout" type="u" access="readwrite"/>
+        <property name="Pairable" type="b" access="readwrite"/>
+        <property name="PairableTimeout" type="u" access="readwrite"/>
+        <property name="Discovering" type="b" access="read"/>
+        <property name="UUIDs" type="as" access="read"/>
+        <property name="Modalias" type="s" access="read"/>
+    </interface>
+</node>

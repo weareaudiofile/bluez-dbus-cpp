@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.Media1">
+        <method name="RegisterEndpoint">
+            <arg name="endpoint" type="o" direction="in"/>
+            <arg name="properties" type="a{sv}" direction="in"/>
+        </method>
+        <method name="UnregisterEndpoint">
+            <arg name="endpoint" type="o" direction="in"/>
+        </method>
+        <method name="RegisterPlayer">
+            <arg name="player" type="o" direction="in"/>
+            <arg name="properties" type="a{sv}" direction="in"/>
+        </method>
+        <method name="UnregisterPlayer">
+            <arg name="player" type="o" direction="in"/>
+        </method>
+    </interface>
+</node>

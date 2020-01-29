@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.GattManager1">
+        <method name="RegisterApplication">
+            <arg name="application" type="o" direction="in"/>
+            <arg name="options" type="a{sv}" direction="in"/>
+        </method>
+        <method name="UnregisterApplication">
+            <arg name="application" type="o" direction="in"/>
+        </method>
+    </interface>
+</node>
