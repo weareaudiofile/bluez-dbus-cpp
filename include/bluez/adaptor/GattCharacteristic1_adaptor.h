@@ -25,8 +25,8 @@ protected:
     {
         object_.registerMethod("ReadValue").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->ReadValue(options); });
         object_.registerMethod("WriteValue").onInterface(INTERFACE_NAME).implementedAs([this](const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& options){ return this->WriteValue(value, options); });
-        object_.registerMethod("AcquireWrite").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireWrite(options); });
-        object_.registerMethod("AcquireNotify").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireNotify(options); });
+        //object_.registerMethod("AcquireWrite").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireWrite(options); });
+        //object_.registerMethod("AcquireNotify").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireNotify(options); });
         object_.registerMethod("StartNotify").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->StartNotify(); });
         object_.registerMethod("StopNotify").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->StopNotify(); });
         object_.registerMethod("Confirm").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->Confirm(); });
@@ -36,8 +36,8 @@ protected:
         object_.registerProperty("Notifying").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Notifying(); });
         object_.registerProperty("Flags").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Flags(); });
         object_.registerProperty("Descriptors").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Descriptors(); });
-        object_.registerProperty("WriteAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->WriteAcquired(); });
-        object_.registerProperty("NotifyAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->NotifyAcquired(); });
+        //object_.registerProperty("WriteAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->WriteAcquired(); });
+        //object_.registerProperty("NotifyAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->NotifyAcquired(); });
     }
 
     ~GattCharacteristic1_adaptor() = default;
