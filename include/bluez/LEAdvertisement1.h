@@ -193,8 +193,11 @@ public:
      */
     LEAdvertisement1& withLocalName( std::string name )
     {
-        localName_ = std::move(name);
-        object_->registerProperty("LocalName").onInterface(INTERFACE_NAME).withGetter([this](){ return this->LocalName(); });
+        if( name.size() )
+        {
+            localName_ = std::move(name);
+            object_->registerProperty("LocalName").onInterface(INTERFACE_NAME).withGetter([this](){ return this->LocalName(); });
+        }
         return *this;
     }
 
