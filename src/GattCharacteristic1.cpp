@@ -104,11 +104,13 @@ void GattCharacteristic1::AcquireNotify(const std::map<std::string, sdbus::Varia
 
 void GattCharacteristic1::StartNotify()
 {
+    notifying_ = true;
     std::cerr << "Method 'StartNotify' default handler" << std::endl;
 }
 
 void GattCharacteristic1::StopNotify()
 {
+    notifying_ = false;
     std::cerr << "Method 'StopNotify' default handler" << std::endl;
 }
 
