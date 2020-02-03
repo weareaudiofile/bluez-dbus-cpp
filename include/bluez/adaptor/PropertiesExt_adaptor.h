@@ -23,6 +23,6 @@ public:
 protected:
     void emitPropertyChangedSignal( const std::string& interfaceName, const std::string& property )
     {
-        emitPropertiesChangedSignal( interfaceName, std::vector{ property } );
+        emitPropertiesChangedSignal( interfaceName, std::vector<std::string>{ property } );
     }
 };
