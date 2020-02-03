@@ -35,9 +35,9 @@ std::string Util::optionsListToString( const std::map<std::string, sdbus::Varian
         {
             res.append("device=").append(Util::getDeviceMAC( iter->second.get<sdbus::ObjectPath>() )).append(", ");
         }
-        else if( iter->first == "MTU" )
+        else if( iter->first == "mtu" )
         {
-            res.append("MTU=").append(std::to_string( iter->second.get<uint16_t>() )).append(", ");
+            res.append("mtu=").append(std::to_string( iter->second.get<uint16_t>() )).append(", ");
         }
         else if( iter->first == "link" )
         {
