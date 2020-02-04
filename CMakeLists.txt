@@ -73,7 +73,7 @@ set( BLUEZ_SOURCES
 	"${BLUEZ_SOURCE_DIR}/Util.cpp" )
 
 
-add_library( bluez-dbus-cpp
+add_library( bluez-dbus-cpp SHARED
 	${BLUEZ_SOURCES}
 	${BLUEZ_HEADERS} )
 
