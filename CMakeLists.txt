@@ -17,20 +17,14 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif ()
 
 # Define project name
-project (bluez-test-cxx)
+project( bluez-dbus-cpp VERSION 0.0.1 LANGUAGES C CXX )
 
-# The version number
-set (${PROJECT_NAME}_VERSION_MAJOR 0)
-set (${PROJECT_NAME}_VERSION_MINOR 0)
-set (${PROJECT_NAME}_PATCH_LEVEL 1)
-
-set (${PROJECT_NAME}_VERSION
-	"${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}")
+# Installation directories for `install` command and pkgconfig file
+include(GNUInstallDirs)
 
 # Set up directory with 3rd party cmake modules
-set (CMAKE_MODULE_PATH
-	${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build_files/cmake/modules/")
-
+# set (CMAKE_MODULE_PATH
+# 	${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build_files/cmake/modules/")
 
 #-------------------------------
 # GENERAL COMPILER CONFIGURATION
@@ -43,32 +37,33 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # SOURCE FILES CONFIGURATION
 #-------------------------------
 set( BLUEZ_HEADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set( BLUEZ_HEADER_PREFIX "bluez-dbus-cpp" )
 set( BLUEZ_HEADERS
-	"${BLUEZ_HEADER_DIR}/bluez/adaptor/GattCharacteristic1_adaptor.h"
-	"${BLUEZ_HEADER_DIR}/bluez/adaptor/GattDescriptor1_adaptor.h"
-	"${BLUEZ_HEADER_DIR}/bluez/adaptor/GattService1_adaptor.h"
-	"${BLUEZ_HEADER_DIR}/bluez/adaptor/ObjectManagerExt_adaptor.h"
-	"${BLUEZ_HEADER_DIR}/bluez/adaptor/PropertiesExt_adaptor.h"
-	"${BLUEZ_HEADER_DIR}/bluez/proxy/Adapter1_proxy.h"
-	"${BLUEZ_HEADER_DIR}/bluez/proxy/AgentManager1_proxy.h"
-	"${BLUEZ_HEADER_DIR}/bluez/proxy/HealthManager1_proxy.h"
-	"${BLUEZ_HEADER_DIR}/bluez/proxy/Media1_proxy.h"
-	"${BLUEZ_HEADER_DIR}/bluez/proxy/NetworkServer1_proxy.h"
-	"${BLUEZ_HEADER_DIR}/bluez/proxy/ProfileManager1_proxy.h"
-	"${BLUEZ_HEADER_DIR}/bluez/proxy/SimAccess1_proxy.h"
-	"${BLUEZ_HEADER_DIR}/bluez/Adapter1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/bluez.h"
-	"${BLUEZ_HEADER_DIR}/bluez/GattApplication1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/GattCharacteristic1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/GattDescriptor1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/GattManager1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/GattService1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/LEAdvertisement1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/LEAdvertisingManager1.h"
-	"${BLUEZ_HEADER_DIR}/bluez/Util.h"
-	"${BLUEZ_HEADER_DIR}/bluez-ext/bluez-ext.h"
-	"${BLUEZ_HEADER_DIR}/bluez-ext/GenericCharacteristic.h"
-	"${BLUEZ_HEADER_DIR}/bluez-ext/ReadOnlyCharacteristic.h" )
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/adaptor/GattCharacteristic1_adaptor.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/adaptor/GattDescriptor1_adaptor.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/adaptor/GattService1_adaptor.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/adaptor/ObjectManagerExt_adaptor.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/adaptor/PropertiesExt_adaptor.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/Adapter1_proxy.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/AgentManager1_proxy.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/HealthManager1_proxy.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/Media1_proxy.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/NetworkServer1_proxy.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/ProfileManager1_proxy.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/SimAccess1_proxy.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/Adapter1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/bluez.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/GattApplication1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/GattCharacteristic1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/GattDescriptor1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/GattManager1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/GattService1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/LEAdvertisement1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/LEAdvertisingManager1.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/Util.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/bluez-ext.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/GenericCharacteristic.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/ReadOnlyCharacteristic.h" )
 
 set( BLUEZ_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set( BLUEZ_SOURCES
@@ -78,16 +73,69 @@ set( BLUEZ_SOURCES
 	"${BLUEZ_SOURCE_DIR}/Util.cpp" )
 
 
-add_library( bluez-cpp
+add_library( bluez-dbus-cpp
 	${BLUEZ_SOURCES}
 	${BLUEZ_HEADERS} )
 
-target_include_directories( bluez-cpp PUBLIC ${BLUEZ_HEADER_DIR} )
+target_include_directories( bluez-dbus-cpp PUBLIC 	
+							$<BUILD_INTERFACE:${BLUEZ_HEADER_DIR}>
+							$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> )
+
+option(BUILD_SHARED_LIBS "Build shared libraries (.so) instead of static ones (.a)" ON)
+
+if(DEFINED BUILD_SHARED_LIBS)
+    set_target_properties(bluez-dbus-cpp PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS})
+endif()
+
+set_target_properties(bluez-dbus-cpp
+					PROPERTIES PUBLIC_HEADER "${BLUEZ_HEADERS}"
+					VERSION "${PROJECT_VERSION}"
+					SOVERSION "${PROJECT_VERSION_MAJOR}"
+					OUTPUT_NAME "bluez-dbus-cpp")
 
 # Link up
 find_package(sdbus-c++ REQUIRED)
-target_link_libraries( bluez-cpp PRIVATE SDBusCpp::sdbus-c++)
+target_link_libraries( bluez-dbus-cpp PUBLIC SDBusCpp::sdbus-c++)
 
+#-------------------------------
+# INSTALL
+#-------------------------------
+install(TARGETS bluez-dbus-cpp
+        EXPORT bluez-dbus-cpp-targets
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT libraries
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libraries
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT static_libraries
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${BLUEZ_HEADER_PREFIX} COMPONENT dev)
+
+# install docs
+install(FILES README.md LICENSE_1_0.txt DESTINATION ${CMAKE_INSTALL_DOCDIR})
+
+#-------------------------------
+# EXAMPLE
+#-------------------------------
 if ( BUILD_EXAMPLE )
 	add_subdirectory( example )
 endif()
+
+#----------------------------------
+# CMAKE CONFIG & PACKAGE CONFIG
+#----------------------------------
+
+include(CMakePackageConfigHelpers)
+
+install(EXPORT bluez-dbus-cpp-targets
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/bluez-dbus-cpp
+        NAMESPACE BlueZ
+        COMPONENT dev)
+
+configure_package_config_file(cmake/bluez-dbus-cpp-config.cmake.in cmake/bluez-dbus-cpp-config.cmake
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/bluez-dbus-cpp)
+write_basic_package_version_file(cmake/bluez-dbus-cpp-config-version.cmake COMPATIBILITY SameMajorVersion)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cmake/bluez-dbus-cpp-config.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/cmake/bluez-dbus-cpp-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/bluez-dbus-cpp
+        COMPONENT dev)
+
+configure_file(pkgconfig/bluez-dbus-cpp.pc.in pkgconfig/bluez-dbus-cpp.pc @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/bluez-dbus-cpp.pc
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig COMPONENT dev)

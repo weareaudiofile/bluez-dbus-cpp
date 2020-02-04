@@ -12,19 +12,42 @@ Please note that in order to comply with the LPGL license of sdbus-cpp, it is im
 
 Kistler have provided bitbake recipes for integrating `sdbus-cpp` into a yocto build. https://github.com/Kistler-Group/sdbus-cpp/blob/master/docs/using-sdbus-c++.md#yocto
 
-## Building
+## Building (with example)
 
 ```
 mkdir build
 cd build
 cmake .. -DBUILD_EXAMPLE=1
-make
+make -j 4
 ```
 
-## Running
+## Running example
 
 From the `build` directory
 
 ```
 ./bin/example
+```
+
+## Building for install
+```
+mkdir build
+cd build
+cmake ..
+make -j 4
+```
+
+## Installing
+
+```
+sudo make install
+```
+
+## Using it in your project
+
+In your CMakeLists.txt
+
+```
+find_package(bluez-dbus-cpp REQUIRED)
+target_link_libraries( your-target-name PRIVATE bluez-dbus-cpp )
 ```

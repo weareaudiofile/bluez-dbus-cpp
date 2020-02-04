@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "bluez/GattCharacteristic1.h"
+#include "GattCharacteristic1.h"
 
 namespace org {
 namespace bluez {

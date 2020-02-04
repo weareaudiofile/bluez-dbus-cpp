@@ -4,8 +4,8 @@
 // (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include "bluez/GattCharacteristic1.h"
-#include "bluez/GattService1.h"
+#include "bluez-dbus-cpp/GattCharacteristic1.h"
+#include "bluez-dbus-cpp/GattService1.h"
 
 #include <set>
 #include <cstring>

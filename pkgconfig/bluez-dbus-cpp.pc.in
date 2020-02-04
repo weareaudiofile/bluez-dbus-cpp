@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@CMAKE_INSTALL_PREFIX@
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+
+Name: @PROJECT_NAME@
+Description: C++ library to address the BlueZ D-Bus API
+Requires: sdbus-c++
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -l@PROJECT_NAME@
+Cflags: -I${includedir}

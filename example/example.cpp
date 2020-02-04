@@ -4,9 +4,9 @@
 // (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include <bluez/bluez.h>
-#include <bluez-ext/GenericCharacteristic.h>
-#include <bluez-ext/ReadOnlyCharacteristic.h>
+#include <bluez-dbus-cpp/bluez.h>
+#include <bluez-dbus-cpp/GenericCharacteristic.h>
+#include <bluez-dbus-cpp/ReadOnlyCharacteristic.h>
 #include "SerialCharacteristic.h"
 
 #include <iostream>

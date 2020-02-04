@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "bluez-ext/GattCharacteristicBuilder.h"
+#include <bluez-dbus-cpp/GattCharacteristicBuilder.h>
 
 #include <iostream>
 
