@@ -105,7 +105,21 @@ install(TARGETS bluez-dbus-cpp
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT libraries
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libraries
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT static_libraries
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${BLUEZ_HEADER_PREFIX} COMPONENT dev)
+		COMPONENT dev)
+	
+# Manually install headers to preserve folder structure	
+install( DIRECTORY "${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/adaptor/"
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${BLUEZ_HEADER_PREFIX}/adaptor"
+	FILES_MATCHING PATTERN "*.h"
+)
+install( DIRECTORY "${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/proxy/"
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${BLUEZ_HEADER_PREFIX}/proxy"
+	FILES_MATCHING PATTERN "*.h"
+)
+install( DIRECTORY "${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/"
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${BLUEZ_HEADER_PREFIX}"
+	FILES_MATCHING PATTERN "*.h"
+)
 
 # install docs
 install(FILES README.md LICENSE_1_0.txt DESTINATION ${CMAKE_INSTALL_DOCDIR})
@@ -125,7 +139,7 @@ include(CMakePackageConfigHelpers)
 
 install(EXPORT bluez-dbus-cpp-targets
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/bluez-dbus-cpp
-        NAMESPACE BlueZ
+        NAMESPACE BlueZ::
         COMPONENT dev)
 
 configure_package_config_file(cmake/bluez-dbus-cpp-config.cmake.in cmake/bluez-dbus-cpp-config.cmake
