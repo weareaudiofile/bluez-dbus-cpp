@@ -189,7 +189,7 @@ protected:
     std::string UUID() override { return uuid_; }
     sdbus::ObjectPath Service() override;
     std::vector<uint8_t> Value() override { return value_; }
-    bool Notifying() override { return notifying_; }
+    bool Notifying() override { return notifyingSessions_ > 0; }
     std::vector<std::string> Flags() override { return flags_; }
     std::vector<sdbus::ObjectPath> Descriptors() override { return includes_; }
     bool WriteAcquired() override { return writeAcquired_; }
@@ -204,7 +204,7 @@ protected:
     std::string path_;
     std::string uuid_;
     std::vector<uint8_t> value_;
-    bool notifying_;
+    int notifyingSessions_;
     std::vector<std::string> flags_;
     bool writeAcquired_;
     bool notifyAcquired_;

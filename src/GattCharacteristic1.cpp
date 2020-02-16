@@ -26,7 +26,7 @@ GattCharacteristic1::GattCharacteristic1( std::shared_ptr<GattService1> service,
       path_{ makePath( *service ) },
       uuid_{ std::move(uuid) },
       value_{},
-      notifying_{ false },
+      notifyingSessions_{ 0 },
       flags_{},
       writeAcquired_{ false },
       notifyAcquired_{ false }
@@ -104,13 +104,13 @@ void GattCharacteristic1::AcquireNotify(const std::map<std::string, sdbus::Varia
 
 void GattCharacteristic1::StartNotify()
 {
-    notifying_ = true;
+    notifyingSessions_ += 1;
     std::cerr << "Method 'StartNotify' default handler" << std::endl;
 }
 
 void GattCharacteristic1::StopNotify()
 {
-    notifying_ = false;
+    notifyingSessions_ -= 1;
     std::cerr << "Method 'StopNotify' default handler" << std::endl;
 }
 
