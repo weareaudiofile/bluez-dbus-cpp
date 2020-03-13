@@ -234,6 +234,21 @@ public:
         return *this;
     }
 
+    /**
+     * @brief Secondary channel to be used. Primary channel is
+	 *	      always set to "1M" except when "Coded" is set.
+     *
+	 *	      Possible value: "1M" (default)
+	 *	                      "2M"
+	 *	                      "Coded"
+     */
+    LEAdvertisement1& withSecondaryChannel( std::string secondaryChannel )
+    {
+        secondaryChannel_= secondaryChannel;
+        object_->registerProperty("SecondaryChannel").onInterface(INTERFACE_NAME).withGetter([this](){ return this->SecondaryChannel(); });
+        return *this;
+    }
+
 protected:
     std::string Type() { return type_; }
     std::vector<std::string> ServiceUUIDs() { return serviceUUIDs_; }
@@ -248,6 +263,7 @@ protected:
     uint16_t Appearance() { return appearance_; }
     uint16_t Duration() { return duration_; }
     uint16_t Timeout() { return timeout_; }
+    std::string SecondaryChannel() { return secondaryChannel_; }
 
     void Release()
     {
@@ -270,6 +286,7 @@ protected:
     uint16_t appearance_;
     uint16_t duration_;
     uint16_t timeout_;
+    std::string secondaryChannel_;
 };
 
 }}
