@@ -82,41 +82,37 @@ void GattCharacteristic1::addFlag( std::string flag )
 
 std::vector<uint8_t> GattCharacteristic1::ReadValue(const std::map<std::string, sdbus::Variant>& options)
 {
-    std::cout << "Method 'ReadValue' called: " << Util::optionsListToString( options ) << std::endl;
     return value_;
 }
 
 void GattCharacteristic1::WriteValue(const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& options)
 {
-    std::cout << "Method 'WriteValue' called: " << Util::optionsListToString( options ) << std::endl;
     value_ = value;
 }
 
 void GattCharacteristic1::AcquireWrite(const std::map<std::string, sdbus::Variant>& options)
 {
-    std::cout << "Method 'AcquireWrite' called: " << Util::optionsListToString( options ) << std::endl;
+    std::cout << "WARNING: Method 'GattCharacteristic1::AcquireWrite' not overloaded! " << Util::optionsListToString( options ) << std::endl;
 }
 
 void GattCharacteristic1::AcquireNotify(const std::map<std::string, sdbus::Variant>& options)
 {
-    std::cout << "AcquireNotify: " << Util::optionsListToString( options ) << std::endl;
+    std::cout << "WARNING: Method 'GattCharacteristic1::AcquireNotify' not overloaded! " << Util::optionsListToString( options ) << std::endl;
 }
 
 void GattCharacteristic1::StartNotify()
 {
     notifyingSessions_ += 1;
-    std::cerr << "Method 'StartNotify' default handler" << std::endl;
 }
 
 void GattCharacteristic1::StopNotify()
 {
     notifyingSessions_ -= 1;
-    std::cerr << "Method 'StopNotify' default handler" << std::endl;
 }
 
 void GattCharacteristic1::Confirm()
 {
-    std::cerr << "Method 'Confirm' default handler" << std::endl;
+    std::cerr << "WARNING: Method 'GattCharacteristic1::Confirm' default handler" << std::endl;
 }
 
 // ---- for Friends ------------------------------------------------------------
