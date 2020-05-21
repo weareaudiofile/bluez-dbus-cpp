@@ -22,6 +22,7 @@ class LEAdvertisement1 :
     std::string path_;
     std::shared_ptr<LEAdvertisingManager1> manager_;
     std::function<void()> onReleaseCallback_;
+    bool registered_;
     static constexpr const char* INTERFACE_NAME = "org.bluez.LEAdvertisement1";
 
 public:
@@ -34,8 +35,7 @@ public:
 
     ~LEAdvertisement1()
     {
-        manager_->UnregisterAdvertisement( getPath() );
-        object_->unregister();
+        unregister();
     }
 
     const std::string& getPath() const
@@ -73,8 +73,20 @@ public:
         else
             manager_->RegisterAdvertisement( getPath() );
 
+        registered_ = true;
+
         auto shared = std::shared_ptr<LEAdvertisement1>( this );
         return shared;
+    }
+
+    void unregister()
+    {
+        if( registered_ )
+        {
+            manager_->UnregisterAdvertisement( getPath() );
+            object_->unregister();
+            registered_ = false;
+        }
     }
 
 public:
