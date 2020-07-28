@@ -84,9 +84,9 @@ public:
         if( registered_ )
         {
             manager_->UnregisterAdvertisement( getPath() );
-            object_->unregister();
             registered_ = false;
         }
+        object_->unregister();
     }
 
 public:
@@ -279,6 +279,7 @@ protected:
 
     void Release()
     {
+        registered_ = false;
         if( onReleaseCallback_ )
         {
             onReleaseCallback_();
