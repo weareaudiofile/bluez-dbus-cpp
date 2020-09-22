@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.Node1">
+        <property name="Features" type="{}" access="read"/>
+        <property name="Beacon" type="b" access="read"/>
+        <property name="IvUpdate" type="b" access="read"/>
+        <property name="IvIndex" type="u" access="read"/>
+        <property name="SecondsSinceLastHeard" type="u" access="read"/>
+        <property name="Addresses" type="aq" access="read"/>
+        <property name="SequenceNumber" type="u" access="read"/>
+        <method name="Send">
+            <arg name="element_path" type="o" direction="in"/>
+            <arg name="destination" type="q" direction="in"/>
+            <arg name="key_index" type="q" direction="in"/>
+            <arg name="options" type="a{sv}" direction="in"/> <!-- ?? -->
+            <arg name="data" type="ay" direction="in"/>
+        </method>
+        <method name="DevKeySend">
+            <arg name="element_path" type="o" direction="in"/>
+            <arg name="destination" type="q" direction="in"/>
+            <arg name="remote" type="b" direction="in"/>
+            <arg name="net_index" type="q" direction="in"/>
+            <arg name="options" type="a{sv}" direction="in"/> <!-- ?? -->
+            <arg name="data" type="ay" direction="in"/>
+        </method>
+        <method name="AddNetKey">
+            <arg name="element_path" type="o" direction="in"/>
+            <arg name="destination" type="q" direction="in"/>
+            <arg name="subnet_index" type="q" direction="in"/>
+            <arg name="net_index" type="q" direction="in"/>
+            <arg name="update" type="b" direction="in"/>
+        </method>
+        <method name="AddAppKey">
+            <arg name="element_path" type="o" direction="in"/>
+            <arg name="destination" type="q" direction="in"/>
+            <arg name="app_index" type="q" direction="in"/>
+            <arg name="net_index" type="q" direction="in"/>
+            <arg name="update" type="b" direction="in"/>
+        </method>
+        <method name="Publish">
+            <arg name="element_path" type="o" direction="in"/>
+            <arg name="model" type="q" direction="in"/>
+            <arg name="options" type="a{sv}" direction="in"/> <!-- ?? -->
+            <arg name="data" type="ay" direction="in"/>
+        </method>
+    </interface>
+</node>

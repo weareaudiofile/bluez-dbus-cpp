@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.ProvisionAgent1">
+        <property name="Capabilities" type="as" access="read"/>
+        <property name="OutOfBandInfo" type="as" access="read"/>
+        <property name="URI" type="s" access="read"/> 
+        <method name="PrivateKey">
+            <arg name="key" type="ay" direction="out"/> 
+        </method>
+        <method name="PublicKey">
+            <arg name="key" type="ay" direction="out"/> 
+        </method>
+        <method name="DisplayString">
+            <arg name="value" type="s" direction="in"/>
+        </method>
+        <method name="DisplayNumeric">
+            <arg name="type" type="s" direction="in"/>
+            <arg name="number" type="u" direction="in"/>
+        </method>
+        <method name="PromptNumeric">
+            <arg name="type" type="s" direction="in"/>
+            <arg name="value" type="u" direction="out"/> 
+        </method>
+        <method name="PromptStatic">
+            <arg name="type" type="s" direction="in"/>
+            <arg name="value" type="ay" direction="out"/> 
+        </method>
+        <method name="Cancel">
+    </interface>
+</node>

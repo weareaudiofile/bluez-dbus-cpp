@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.Element1">
+        <property name="Index" type="y" access="read"/>
+        <property name="Models" type="a(qa{sv})" access="read"/> <!-- ?? -->
+        <property name="VendorModels" type="a(qqa{sv})" access="read"/> <!-- ?? -->
+        <property name="Location" type="q" access="read"/>
+        <method name="MessageReceived">
+            <arg name="source" type="q" direction="in"/>
+            <arg name="key_index" type="q" direction="in"/>
+            <arg name="destination" type="v" direction="in"/>
+            <arg name="data" type="ay" direction="in"/>
+        </method>
+        <method name="DevKeyMessageReceived">
+            <arg name="source" type="q" direction="in"/>
+            <arg name="remote" type="b" direction="in"/>
+            <arg name="net_index" type="q" direction="in"/>
+            <arg name="data" type="ay" direction="in"/>
+        </method>
+        <method name="UpdateModelConfiguration">
+            <arg name="model_id" type="q" direction="in"/>
+            <arg name="config" type="a{sv}" direction="in"/> <!-- ?? -->
+        </method>
+    </interface>
+</node>
