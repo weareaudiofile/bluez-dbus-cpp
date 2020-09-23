@@ -5,10 +5,10 @@
  (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
 -->
 <node>
-    <interface name="org.bluez.Element1">
+    <interface name="org.bluez.mesh.Element1">
         <property name="Index" type="y" access="read"/>
-        <property name="Models" type="a(qa{sv})" access="read"/> <!-- ?? -->
-        <property name="VendorModels" type="a(qqa{sv})" access="read"/> <!-- ?? -->
+        <property name="Models" type="a(qa{sv})" access="read"/> <!-- see bluez/tools/mesh-cfgclient.c:1542 -->
+        <property name="VendorModels" type="a(qqa{sv})" access="read"/> <!-- see bluez/tools/mesh-cfgclient.c:1540 -->
         <property name="Location" type="q" access="read"/>
         <method name="MessageReceived">
             <arg name="source" type="q" direction="in"/>
@@ -24,7 +24,7 @@
         </method>
         <method name="UpdateModelConfiguration">
             <arg name="model_id" type="q" direction="in"/>
-            <arg name="config" type="a{sv}" direction="in"/> <!-- ?? -->
+            <arg name="config" type="a{sv}" direction="in"/> <!-- see bluez/mesh/model.c:215 -->
         </method>
     </interface>
 </node>

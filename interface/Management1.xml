@@ -5,14 +5,14 @@
  (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
 -->
 <node>
-    <interface name="org.bluez.Management1">
+    <interface name="org.bluez.mesh.Management1">
         <method name="UnprovisionedScan">
-            <arg name="options" type="a{sv}" direction="in"/> <!-- ?? -->
+            <arg name="options" type="a{sv}" direction="in"/>
         </method>
         <method name="UnprovisionedScanCancel">
         <method name="AddNode">
             <arg name="uuid" type="ay" direction="in"/>
-            <arg name="options" type="a{sv}" direction="in"/> <!-- ?? -->
+            <arg name="options" type="a{sv}" direction="in"/>
         </method>
         <method name="CreateSubnet">
             <arg name="net_index" type="q" direction="in"/>

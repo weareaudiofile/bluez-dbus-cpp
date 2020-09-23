@@ -5,7 +5,7 @@
  (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
 -->
 <node>
-    <interface name="org.bluez.ProvisionAgent1">
+    <interface name="org.bluez.mesh.ProvisionAgent1">
         <property name="Capabilities" type="as" access="read"/>
         <property name="OutOfBandInfo" type="as" access="read"/>
         <property name="URI" type="s" access="read"/> 
