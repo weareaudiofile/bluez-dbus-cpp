@@ -9,7 +9,7 @@
         <method name="UnprovisionedScan">
             <arg name="options" type="a{sv}" direction="in"/>
         </method>
-        <method name="UnprovisionedScanCancel">
+        <method name="UnprovisionedScanCancel"/>
         <method name="AddNode">
             <arg name="uuid" type="ay" direction="in"/>
             <arg name="options" type="a{sv}" direction="in"/>

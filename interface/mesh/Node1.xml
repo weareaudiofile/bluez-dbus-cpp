@@ -6,7 +6,7 @@
 -->
 <node>
     <interface name="org.bluez.mesh.Node1">
-        <property name="Features" type="{}" access="read"/>
+        <property name="Features" type="a{sv}" access="read"/>
         <property name="Beacon" type="b" access="read"/>
         <property name="IvUpdate" type="b" access="read"/>
         <property name="IvIndex" type="u" access="read"/>

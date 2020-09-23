@@ -30,6 +30,6 @@
             <arg name="type" type="s" direction="in"/>
             <arg name="value" type="ay" direction="out"/> 
         </method>
-        <method name="Cancel">
+        <method name="Cancel"/>
     </interface>
 </node>

@@ -24,7 +24,7 @@ sdbus-c++-xml2cpp GattService1.xml --adaptor=${ADAPTOR}/GattService1_adaptor.h
 sdbus-c++-xml2cpp GattCharacteristic1.xml --adaptor=${ADAPTOR}/GattCharacteristic1_adaptor.h
 sdbus-c++-xml2cpp GattDescriptor1.xml --adaptor=${ADAPTOR}/GattDescriptor1_adaptor.h
 
-# Mesh
+## Mesh
 # Clients
 sdbus-c++-xml2cpp mesh/Management1.xml --proxy=${PROXY}/mesh/Management1_proxy.h
 sdbus-c++-xml2cpp mesh/Network1.xml --proxy=${PROXY}/mesh/Network1_proxy.h

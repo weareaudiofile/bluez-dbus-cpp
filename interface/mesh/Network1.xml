@@ -10,21 +10,21 @@
             <arg name="app_root" type="o" direction="in"/>
             <arg name="uuid" type="ay" direction="in"/>
         </method>
-        <method name="Cancel">
+        <method name="Cancel"/>
         <method name="Attach">
             <arg name="app_root" type="o" direction="in"/>
             <arg name="token" type="t" direction="in"/>
             <arg name="node" type="o" direction="out"/>
             <arg name="configuration" type="a(ya(qa{sv}))" direction="out"/> <!-- see bluez/mesh/mesh.c:903 -->
         </method>
-        <method name="Leave"/>
+        <method name="Leave">
             <arg name="token" type="t" direction="in"/>
         </method>
-        <method name="CreateNetwork"/>
+        <method name="CreateNetwork">
             <arg name="app_root" type="o" direction="in"/>
             <arg name="uuid" type="ay" direction="in"/>
         </method>
-        <method name="Import"/>
+        <method name="Import">
             <arg name="app_root" type="o" direction="in"/>
             <arg name="uuid" type="ay" direction="in"/>
             <arg name="dev_key" type="ay" direction="in"/>
