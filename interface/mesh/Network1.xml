@@ -15,7 +15,7 @@
             <arg name="app_root" type="o" direction="in"/>
             <arg name="token" type="t" direction="in"/>
             <arg name="node" type="o" direction="out"/>
-            <arg name="configuration" type="a(ya(qa{sv}))" direction="out"/> <!-- ?? -->
+            <arg name="configuration" type="a(ya(qa{sv}))" direction="out"/> <!-- see bluez/mesh/mesh.c:903 -->
         </method>
         <method name="Leave"/>
             <arg name="token" type="t" direction="in"/>
@@ -30,7 +30,7 @@
             <arg name="dev_key" type="ay" direction="in"/>
             <arg name="net_key" type="ay" direction="in"/>
             <arg name="net_index" type="q" direction="in"/>
-            <arg name="flags" type="a{sv}" direction="in"/> <!-- ?? -->
+            <arg name="flags" type="a{sv}" direction="in"/>
             <arg name="iv_index" type="u" direction="in"/>
             <arg name="unicast" type="q" direction="in"/>
         </method>
