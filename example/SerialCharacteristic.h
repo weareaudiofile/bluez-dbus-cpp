@@ -18,7 +18,7 @@ class SerialCharacteristic :
 {
 public:
     SerialCharacteristic( std::shared_ptr<GattService1> service, std::string uuid )
-        : GattCharacteristicBuilder{ move(service), move(uuid) }
+        : GattCharacteristicBuilder{ move(service), move(uuid), true, true }
     {
         flags_ = { "read", "write", "indicate" };
     }
@@ -42,6 +42,16 @@ protected:
     //     std::cout << "Serial TX: " << std::string( value.begin(), value.end() ) << std::endl;
     //     value_ = value;
     // }
+
+    virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireWrite(const std::map<std::string, sdbus::Variant>& options)
+    {
+
+    }
+
+    virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireNotify(const std::map<std::string, sdbus::Variant>& options)
+    {
+        
+    }
 };
 
 }}

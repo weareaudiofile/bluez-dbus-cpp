@@ -26,9 +26,13 @@
         </method>
         <method name="AcquireWrite">
             <arg name="options" type="a{sv}" direction="in"/>
+            <arg name="fd" type="h" direction="out"/>
+            <arg name="mtu" type="q" direction="out"/>
         </method>
         <method name="AcquireNotify">
             <arg name="options" type="a{sv}" direction="in"/>
+            <arg name="fd" type="h" direction="out"/>
+            <arg name="mtu" type="q" direction="out"/>
         </method>
         <method name="StartNotify">
             <!--<annotation name="org.freedesktop.DBus.Method.Async" value="server" />-->
