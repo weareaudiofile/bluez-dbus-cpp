@@ -32,9 +32,9 @@ ${XML2CPP} GattDescriptor1.xml --adaptor=${ADAPTOR}/GattDescriptor1_adaptor.h
 ${XML2CPP} mesh/Management1.xml --proxy=${MESH_PROXY}/Management1_proxy.h
 ${XML2CPP} mesh/Network1.xml --proxy=${MESH_PROXY}/Network1_proxy.h
 ${XML2CPP} mesh/Node1.xml --proxy=${MESH_PROXY}/Node1_proxy.h
-${XML2CPP} mesh/ProvisionAgent1.xml --proxy=${MESH_PROXY}/ProvisionAgent1_proxy.h
 ${XML2CPP} mesh/Provisioner1.xml --proxy=${MESH_PROXY}/Provisioner1_proxy.h
 
 # Services
 ${XML2CPP} mesh/Application1.xml --adaptor=${MESH_ADAPTOR}/Application1_adaptor.h
 ${XML2CPP} mesh/Element1.xml --adaptor=${MESH_ADAPTOR}/Element1_adaptor.h
+${XML2CPP} mesh/ProvisionAgent1.xml --adaptor=${MESH_ADAPTOR}/ProvisionAgent1_adaptor.h

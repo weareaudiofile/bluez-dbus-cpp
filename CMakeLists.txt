@@ -131,6 +131,13 @@ if ( BUILD_EXAMPLE )
 	add_subdirectory( example )
 endif()
 
+#-------------------------------
+# MESH EXAMPLE
+#-------------------------------
+if ( BUILD_MESH_EXAMPLE )
+	add_subdirectory( example-mesh )
+endif()
+
 #----------------------------------
 # CMAKE CONFIG & PACKAGE CONFIG
 #----------------------------------

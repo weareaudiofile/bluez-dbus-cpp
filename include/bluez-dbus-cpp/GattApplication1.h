@@ -75,18 +75,6 @@ public:
         return connection_;
     }
 
-public:
-    // std::map<sdbus::ObjectPath, std::map<std::string, std::map<std::string, sdbus::Variant>>> GetManagedObjects() override
-    // {
-    //     std::map<sdbus::ObjectPath, std::map<std::string, std::map<std::string, sdbus::Variant>>> response;
-
-    //     for( auto service{ services_.cbegin() }; service != services_.cend(); service++ )
-    //     {
-    //         response[ service.getPath() ] = service.Includes();
-
-    //     }
-    // }
-
 protected:
     std::string path_;
     std::shared_ptr<IConnection> connection_;
