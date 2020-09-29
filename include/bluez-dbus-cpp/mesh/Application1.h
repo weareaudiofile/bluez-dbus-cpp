@@ -8,6 +8,7 @@
 
 #include "../adaptor/PropertiesExt_adaptor.h"
 #include "adaptor/Application1_adaptor.h"
+#include "Element1.h"
 
 #include <sdbus-c++/sdbus-c++.h>
 
@@ -39,10 +40,29 @@ public:
     ~Application1() { }
 
 public:
-    // virtual void addCharacteristic( std::shared_ptr<GattCharacteristic1> characteristic );
-    // virtual void removeCharacteristic( std::shared_ptr<GattCharacteristic1> characteristic );
     virtual const std::string& getPath() const final { return path_; }
     virtual std::shared_ptr<IConnection> getConnection() const final { return connection_; }
+
+    void addElement(std::shared_ptr<Element1> element){
+        const std::string& chrcPath = element->getPath();
+
+        for( auto ele : elements_ )
+        {
+            if( ele == element )
+                return; // already registered
+        }
+
+        elements_.push_back( std::move(element) );
+    }
+
+    std::shared_ptr<Element1> getElement(uint8_t index){
+
+        for( auto ele : elements_ )
+        {
+            if( ele->getIndex() == index )
+                return ele;
+        }
+    }
 
 private:
     /**
@@ -64,12 +84,21 @@ private:
     {
         std::cout << "JoinComplete with token: " << token << std::endl;
     }
-
+    
+    /**
+    * This method is called when the node provisioning initiated by
+    * Join() has failed.
+    * 
+    * The reason parameter identifies the reason for provisioning
+    * failure. The defined values are: "timeout", "bad-pdu",
+    * "confirmation-failed", "out-of-resources", "decryption-error",
+    * "unexpected-error", "cannot-assign-addresses".
+    */
     void JoinFailed(const std::string& reason) override
     {
         std::cerr << "JoinFailed with reason: " << reason << std::endl;
     }
-
+    
 private:
     uint16_t CompanyID() override
     {
@@ -101,6 +130,8 @@ protected:
     uint16_t productID_;
     uint16_t versionID_{ 1 };
     uint16_t crpl_{ 0 };
+
+    std::vector< std::shared_ptr<Element1> > elements_;
 
     std::string path_;
     std::shared_ptr<IConnection> connection_;

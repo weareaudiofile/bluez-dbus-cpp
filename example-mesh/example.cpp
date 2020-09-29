@@ -7,6 +7,8 @@
 #include <bluez-dbus-cpp/bluez.h>
 #include <bluez-dbus-cpp/mesh/Network1.h>
 #include <bluez-dbus-cpp/mesh/Application1.h>
+#include <bluez-dbus-cpp/mesh/Element1.h>
+#include <bluez-dbus-cpp/mesh/ProvisionAgent1.h>
 
 #include <iostream>
 #include <signal.h>
@@ -60,10 +62,12 @@ int main(int argc, char *argv[])
     
     auto nwk = std::make_shared<Network1>( connection );
     auto app = std::make_shared<Application1>( connection, 0x05f1, 0x0001 );
-
-    nwk->Join( app->getPath(), { 0x0a, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F } );
+    auto agent = std::make_shared<ProvisionAgent1>(connection);
+    auto ele = std::make_shared<Element1>(connection, 0x00);
 
     std::cout << "Loading complete." << std::endl;
+
+    //nwk->Join( app->getPath(), { 0x0a, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F } );
 
     connection->enterProcessingLoopAsync();
 
