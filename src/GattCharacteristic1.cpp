@@ -20,7 +20,12 @@ static std::string makePath( const GattService1& service )
     return path;
 }
 
-GattCharacteristic1::GattCharacteristic1( std::shared_ptr<GattService1> service, std::string uuid, bool hasAcquireWrite, bool hasAcquireNotify )
+GattCharacteristic1::GattCharacteristic1(
+        std::shared_ptr<GattService1> service,
+        std::string uuid,
+        bool hasAcquireWrite,
+        bool hasAcquireNotify,
+        bool hasValue )
     : AdaptorInterfaces{ *(service->getConnection()), makePath( *service ) },
       service_{ service },
       path_{ makePath( *service ) },
@@ -34,10 +39,16 @@ GattCharacteristic1::GattCharacteristic1( std::shared_ptr<GattService1> service,
     if( hasAcquireWrite )
     {
         getCharacteristicObject().registerMethod("AcquireWrite").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireWrite(options); });    
+        getCharacteristicObject().registerProperty("WriteAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->WriteAcquired(); });
     }
     if( hasAcquireNotify )
     {
         getCharacteristicObject().registerMethod("AcquireNotify").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireNotify(options); });
+        getCharacteristicObject().registerProperty("NotifyAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->NotifyAcquired(); });
+    }
+    if( hasValue )
+    {
+        getCharacteristicObject().registerProperty("Value").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Value(); });       
     }
 }
 

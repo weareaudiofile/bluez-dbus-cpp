@@ -30,7 +30,11 @@ class GattCharacteristic1 :
     static constexpr const char* INTERFACE_NAME = "org.bluez.GattCharacteristic1";
 
 public:
-    GattCharacteristic1( std::shared_ptr<GattService1> service, std::string uuid, bool hasAcquireWrite = false, bool hasAcquireNotify = false  );
+    GattCharacteristic1( std::shared_ptr<GattService1> service,
+        std::string uuid,
+        bool hasAcquireWrite = false,
+        bool hasAcquireNotify = false,
+        bool hasValue = false);
     virtual ~GattCharacteristic1();
 
     void addValue( std::string value );

@@ -18,9 +18,9 @@ class SerialCharacteristic :
 {
 public:
     SerialCharacteristic( std::shared_ptr<GattService1> service, std::string uuid )
-        : GattCharacteristicBuilder{ move(service), move(uuid), true, true }
+        : GattCharacteristicBuilder{ move(service), move(uuid) }
     {
-        flags_ = { "read", "write", "indicate" };
+        flags_ = { "read", "write", "notify", "write-without-response" };
     }
 
     static SerialCharacteristic& create(std::shared_ptr<GattService1> service, std::string uuid)
@@ -30,27 +30,17 @@ public:
     }
 
 protected:
-    // virtual std::vector<uint8_t> ReadValue(const std::map<std::string, sdbus::Variant>& options)
-    // {
-    //     // TODO handle options
-    //     return value_;
-    // }
-
-    // virtual void WriteValue(const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& options)
-    // {
-    //     // TODO handle options
-    //     std::cout << "Serial TX: " << std::string( value.begin(), value.end() ) << std::endl;
-    //     value_ = value;
-    // }
-
-    virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireWrite(const std::map<std::string, sdbus::Variant>& options)
+    virtual std::vector<uint8_t> ReadValue(const std::map<std::string, sdbus::Variant>& options)
     {
-
+        std::cout << "Serial RX: " << std::string( value_.begin(), value_.end() ) << std::endl;
+        return value_;
     }
 
-    virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireNotify(const std::map<std::string, sdbus::Variant>& options)
+    virtual void WriteValue(const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& options)
     {
-        
+        std::cout << "Serial TX: " << std::string( value.begin(), value.end() ) << std::endl;
+        value_ = value;
+        emitPropertyChangedSignal( "Value" );
     }
 };
 

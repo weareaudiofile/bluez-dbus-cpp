@@ -21,6 +21,12 @@ cmake .. -DBUILD_EXAMPLE=1
 make -j 4
 ```
 
+To build the socket example:
+
+```
+cmake .. -DBUILD_EXAMPLE_ELL=1
+```
+
 ## Running example
 
 From the `build` directory

@@ -31,12 +31,12 @@ protected:
         object_.registerMethod("Confirm").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->Confirm(); });
         object_.registerProperty("UUID").onInterface(INTERFACE_NAME).withGetter([this](){ return this->UUID(); });
         object_.registerProperty("Service").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Service(); });
-        object_.registerProperty("Value").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Value(); });
+        //object_.registerProperty("Value").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Value(); });
         object_.registerProperty("Notifying").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Notifying(); });
         object_.registerProperty("Flags").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Flags(); });
         object_.registerProperty("Descriptors").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Descriptors(); });
-        object_.registerProperty("WriteAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->WriteAcquired(); });
-        object_.registerProperty("NotifyAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->NotifyAcquired(); });
+        //object_.registerProperty("WriteAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->WriteAcquired(); });
+        //object_.registerProperty("NotifyAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->NotifyAcquired(); });
     }
 
     ~GattCharacteristic1_adaptor() = default;
