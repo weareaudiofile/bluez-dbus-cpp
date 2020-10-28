@@ -22,8 +22,13 @@ class GattCharacteristicBuilder :
     public GattCharacteristic1
 {
 protected:
-    GattCharacteristicBuilder( std::shared_ptr<GattService1> service, std::string uuid, bool hasAcquireWrite = false, bool hasAcquireNotify = false )
-        : GattCharacteristic1{ move(service), move(uuid), hasAcquireWrite, hasAcquireNotify }
+    GattCharacteristicBuilder( std::shared_ptr<GattService1> service,
+        std::string uuid,
+        bool hasAcquireWrite = false,
+        bool hasAcquireNotify = false,
+        bool hasValue = false,
+        bool valueIsDirected = false )
+        : GattCharacteristic1{ move(service), move(uuid), hasAcquireWrite, hasAcquireNotify, hasValue, valueIsDirected }
     {
     }
 

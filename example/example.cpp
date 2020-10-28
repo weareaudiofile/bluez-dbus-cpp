@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
         std::cerr << std::endl << "error registering signal handler" << std::endl;
 
     constexpr const char* APP_PATH = "/org/bluez/example";
-    constexpr const char* SRV_PATH = "/org/bluez/example/service1";
     constexpr const char* ADV_PATH = "/org/bluez/example/advertisement1";
 
     constexpr const char* NAME = "ExampleBlueZ";
@@ -43,7 +42,7 @@ int main(int argc, char *argv[])
 
         adapter1.Powered( true );
         adapter1.Discoverable( true );
-        adapter1.Pairable( false );
+        adapter1.Pairable( true );
         adapter1.Alias( NAME );
 
         std::cout << "Found adapter '" << DEVICE0 << "'" << std::endl;
@@ -58,7 +57,7 @@ int main(int argc, char *argv[])
 
     // ---- Services ---------------------------------------------------------------------------------------------------
     GattManager1 gattMgr{ connection, BLUEZ_SERVICE, DEVICE0 };
-    auto app =  std::make_shared<GattApplication1>( connection, "/org/bluez/service" );
+    auto app =  std::make_shared<GattApplication1>( connection, APP_PATH );
     auto srv1 = std::make_shared<GattService1>( app, "deviceinfo", "180A" );
     ReadOnlyCharacteristic::createFinal( srv1, "2A24", NAME ); // model name
     ReadOnlyCharacteristic::createFinal( srv1, "2A25", "333-12345678-888" ); // serial number

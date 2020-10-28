@@ -16,7 +16,7 @@ class GenericCharacteristic :
 {
 public:
     GenericCharacteristic( std::shared_ptr<GattService1> service, std::string uuid )
-        : GattCharacteristicBuilder{ move(service), move(uuid) }
+        : GattCharacteristicBuilder{ move(service), move(uuid), false, false, true }
     {
     }
 

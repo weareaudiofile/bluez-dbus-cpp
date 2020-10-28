@@ -7,6 +7,8 @@
 #include "bluez-dbus-cpp/GattService1.h"
 #include "bluez-dbus-cpp/GattApplication1.h"
 
+#include <exception>
+
 namespace org {
 namespace bluez {
 
@@ -51,22 +53,17 @@ GattService1::~GattService1()
 
 void GattService1::addCharacteristic( std::shared_ptr<GattCharacteristic1> characteristic )
 {
-    const std::string& chrcPath = characteristic->getPath();
-
-    for( auto path : includes_ )
+    for( auto chrc : characteristics_ )
     {
-        if( path == chrcPath )
-            return; // already registered
+        if( chrc == characteristic )
+            throw std::invalid_argument(std::string("GattService1::addCharacteristic '") + characteristic->getPath() + std::string("' already registered!"));
     }
 
     characteristics_.push_back( std::move(characteristic) );
-    includes_.push_back( sdbus::ObjectPath{ chrcPath } );
 }
 
 void GattService1::removeCharacteristic( std::shared_ptr<GattCharacteristic1> characteristic )
 {
-    const std::string& chrcPath = characteristic->getPath();
-
     for( auto iter{ characteristics_.cbegin() }; iter != characteristics_.cend(); iter++ )
     {
         if( *iter == characteristic )
@@ -75,10 +72,38 @@ void GattService1::removeCharacteristic( std::shared_ptr<GattCharacteristic1> ch
             break;
         }
     }
+}
+
+void GattService1::addSubService( std::shared_ptr<GattService1> service )
+{
+    const std::string& srvPath = service->getPath();
+
+    for( auto path : includes_ )
+    {
+        if( path == srvPath )
+            throw std::invalid_argument(std::string("GattService1::addSubService '") + srvPath + std::string("' already registered!"));
+    }
+
+    services_.push_back( std::move(service) );
+    includes_.push_back( sdbus::ObjectPath{ srvPath } );
+}
+
+void GattService1::removeSubService( std::shared_ptr<GattService1> service )
+{
+    const std::string& srvPath = service->getPath();
+
+    for( auto iter{ services_.cbegin() }; iter != services_.cend(); iter++ )
+    {
+        if( *iter == service )
+        {
+            services_.erase( iter );
+            break;
+        }
+    }
 
     for( auto iter{ includes_.cbegin() }; iter != includes_.cend(); iter++ )
     {
-        if( *iter == chrcPath )
+        if( *iter == srvPath )
         {
             includes_.erase( iter );
             break;
@@ -98,7 +123,7 @@ std::shared_ptr<IConnection> GattService1::getConnection() const
 
 int GattService1::nextCharacteristicIndex() const
 {
-    return includes_.size();
+    return characteristics_.size();
 }
 
 }}

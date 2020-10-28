@@ -25,7 +25,8 @@ GattCharacteristic1::GattCharacteristic1(
         std::string uuid,
         bool hasAcquireWrite,
         bool hasAcquireNotify,
-        bool hasValue )
+        bool hasValue,
+        bool valueIsDirected )
     : AdaptorInterfaces{ *(service->getConnection()), makePath( *service ) },
       service_{ service },
       path_{ makePath( *service ) },
@@ -48,7 +49,14 @@ GattCharacteristic1::GattCharacteristic1(
     }
     if( hasValue )
     {
-        getCharacteristicObject().registerProperty("Value").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Value(); });       
+        if( valueIsDirected )
+        {
+            getCharacteristicObject().registerProperty("DirectedValue").onInterface(INTERFACE_NAME).withGetter([this](){ return this->DirectedValue(); }); 
+        }
+        else
+        {
+            getCharacteristicObject().registerProperty("Value").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Value(); });       
+        }
     }
 }
 
@@ -109,6 +117,11 @@ void GattCharacteristic1::WriteValue(const std::vector<uint8_t>& value, const st
     value_ = value;
 }
 
+std::map<sdbus::ObjectPath, std::vector<uint8_t>> GattCharacteristic1::DirectedValue()
+{
+    throw sdbus::Error("org.bluez.Error.NotSupported", "Property 'GattCharacteristic1::DirectedValue' not overloaded!");
+}
+
 std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireWrite(const std::map<std::string, sdbus::Variant>& options)
 {
     throw sdbus::Error("org.bluez.Error.NotSupported", "Method 'GattCharacteristic1::AcquireWrite' not overloaded!");
@@ -142,7 +155,7 @@ void GattCharacteristic1::addDescriptor( std::shared_ptr<GattDescriptor1> descri
     for( auto path : includes_ )
     {
         if( path == descPath )
-            return; // already registered
+            throw std::invalid_argument(std::string("GattCharacteristic1::addDescriptor '") + descPath + std::string("' already registered!"));
     }
 
     descriptors_.push_back( std::move(descriptor) );

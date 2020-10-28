@@ -34,7 +34,8 @@ public:
         std::string uuid,
         bool hasAcquireWrite = false,
         bool hasAcquireNotify = false,
-        bool hasValue = false);
+        bool hasValue = false,
+        bool valueIsDirected = false);
     virtual ~GattCharacteristic1();
 
     void addValue( std::string value );
@@ -195,6 +196,7 @@ protected:
     std::string UUID() override { return uuid_; }
     sdbus::ObjectPath Service() override;
     std::vector<uint8_t> Value() override { return value_; }
+    std::map<sdbus::ObjectPath, std::vector<uint8_t>> DirectedValue() override;
     bool Notifying() override { return notifyingSessions_ > 0; }
     std::vector<std::string> Flags() override { return flags_; }
     std::vector<sdbus::ObjectPath> Descriptors() override { return includes_; }

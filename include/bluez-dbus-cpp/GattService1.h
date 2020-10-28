@@ -37,6 +37,8 @@ public:
 public:
     virtual void addCharacteristic( std::shared_ptr<GattCharacteristic1> characteristic );
     virtual void removeCharacteristic( std::shared_ptr<GattCharacteristic1> characteristic );
+    virtual void addSubService( std::shared_ptr<GattService1> service );
+    virtual void removeSubService( std::shared_ptr<GattService1> service );
     virtual const std::string& getPath() const final;
     virtual std::shared_ptr<IConnection> getConnection() const final;
     virtual int nextCharacteristicIndex() const final;
@@ -88,6 +90,7 @@ protected:
     std::string uuid_;
     bool primary_;
 
+    std::vector<std::shared_ptr<GattService1>> services_;
     std::vector<std::shared_ptr<GattCharacteristic1>> characteristics_;
     std::vector<sdbus::ObjectPath> includes_;
 };
