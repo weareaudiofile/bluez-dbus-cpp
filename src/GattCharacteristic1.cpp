@@ -117,7 +117,7 @@ void GattCharacteristic1::WriteValue(const std::vector<uint8_t>& value, const st
     value_ = value;
 }
 
-std::map<sdbus::ObjectPath, std::vector<uint8_t>> GattCharacteristic1::DirectedValue()
+std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> GattCharacteristic1::DirectedValue()
 {
     throw sdbus::Error("org.bluez.Error.NotSupported", "Property 'GattCharacteristic1::DirectedValue' not overloaded!");
 }

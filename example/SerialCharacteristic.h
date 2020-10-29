@@ -77,14 +77,17 @@ protected:
 
     void Notify( std::shared_ptr<SerialClient> client )
     {
+        // in this example we always append a 'k' message to test the multi-packet aspect
+        // that is part of the 'DirectedValue' BlueZ patch rev2 feature
+        directedQueue_.insert( std::make_pair( client->getPath(), std::vector<std::vector<uint8_t>>{ client->getData(), std::vector<uint8_t>{ 'k' } } ) );
+
         if( notifyingSessions_ > 0 )
         {
-            directedQueue_.insert( std::make_pair( client->getPath(), client->getData() ) );
             emitPropertyChangedSignal( "DirectedValue" );
         }
     }
 
-    std::map<sdbus::ObjectPath, std::vector<uint8_t>> DirectedValue()
+    std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> DirectedValue()
     {
         std::cout << "DirectedValue()" << std::endl;
         return std::move(directedQueue_);
@@ -106,7 +109,7 @@ protected:
         return iter->second;
     }
 
-    std::map<sdbus::ObjectPath, std::vector<uint8_t>> directedQueue_;
+    std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> directedQueue_;
     std::map<sdbus::ObjectPath, std::shared_ptr<SerialClient>> clients_;
 };
 

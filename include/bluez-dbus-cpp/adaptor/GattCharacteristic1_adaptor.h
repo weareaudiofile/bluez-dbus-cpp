@@ -56,7 +56,7 @@ private:
     virtual std::string UUID() = 0;
     virtual sdbus::ObjectPath Service() = 0;
     virtual std::vector<uint8_t> Value() = 0;
-    virtual std::map<sdbus::ObjectPath, std::vector<uint8_t>> DirectedValue() = 0;
+    virtual std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> DirectedValue() = 0;
     virtual bool Notifying() = 0;
     virtual std::vector<std::string> Flags() = 0;
     virtual std::vector<sdbus::ObjectPath> Descriptors() = 0;
