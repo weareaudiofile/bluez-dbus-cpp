@@ -10,6 +10,43 @@
 namespace org {
 namespace bluez {
 
+std::tuple<uint16_t /* real */,uint16_t /* usable */> Util::getMTUFromOptions( const std::map<std::string, sdbus::Variant>& options )
+{
+    auto deviceIter = options.find("mtu");
+    if( deviceIter != options.end() )
+    {
+        constexpr uint16_t ATT_MTU = 251;
+        uint16_t realMtu = deviceIter->second.get<uint16_t>();
+        uint16_t usableMtu;
+        if( realMtu > ATT_MTU )
+        {
+            usableMtu = realMtu - ((realMtu / ATT_MTU ) * 10) /* return usable MTU, subtract 10 byte overhead per ATT packet */;
+        }
+        else
+        {
+            usableMtu = realMtu - 3;
+        }
+        return std::make_tuple( realMtu, usableMtu );
+    }
+    else
+    {
+        return std::make_tuple( uint16_t(0), uint16_t(0) );
+    }
+}
+
+sdbus::ObjectPath Util::getObjectPathFromOptions( const std::map<std::string, sdbus::Variant>& options )
+{
+    auto deviceIter = options.find("device");
+    if( deviceIter != options.end() )
+    {
+        return deviceIter->second.get<sdbus::ObjectPath>();
+    }
+    else
+    {
+        return "";
+    }
+}
+
 std::string Util::getDeviceMAC( const sdbus::ObjectPath& path )
 {
     std::string mac;

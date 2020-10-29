@@ -61,6 +61,8 @@ set( BLUEZ_HEADERS
 	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/LEAdvertisement1.h"
 	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/LEAdvertisingManager1.h"
 	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/Util.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/Socket.h"
+	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/Client.h"
 	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/bluez-ext.h"
 	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/GenericCharacteristic.h"
 	"${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/ReadOnlyCharacteristic.h" )
@@ -125,10 +127,14 @@ install( DIRECTORY "${BLUEZ_HEADER_DIR}/${BLUEZ_HEADER_PREFIX}/"
 install(FILES README.md LICENSE_1_0.txt DESTINATION ${CMAKE_INSTALL_DOCDIR})
 
 #-------------------------------
-# EXAMPLE
+# EXAMPLES
 #-------------------------------
 if ( BUILD_EXAMPLE )
 	add_subdirectory( example )
+endif()
+
+if ( BUILD_EXAMPLE_ELL )
+	add_subdirectory( example-ell-sockets )
 endif()
 
 #----------------------------------

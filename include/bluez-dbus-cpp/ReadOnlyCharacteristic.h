@@ -16,7 +16,7 @@ class ReadOnlyCharacteristic :
 {
 public:
     ReadOnlyCharacteristic( std::shared_ptr<GattService1> service, std::string uuid, std::string value )
-        : GattCharacteristicBuilder{ move(service), move(uuid) }
+        : GattCharacteristicBuilder{ move(service), move(uuid), false, false, true }
     {
         addFlag( "read" );
         addValue( move(value) );

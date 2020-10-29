@@ -20,7 +20,13 @@ static std::string makePath( const GattService1& service )
     return path;
 }
 
-GattCharacteristic1::GattCharacteristic1( std::shared_ptr<GattService1> service, std::string uuid )
+GattCharacteristic1::GattCharacteristic1(
+        std::shared_ptr<GattService1> service,
+        std::string uuid,
+        bool hasAcquireWrite,
+        bool hasAcquireNotify,
+        bool hasValue,
+        bool valueIsDirected )
     : AdaptorInterfaces{ *(service->getConnection()), makePath( *service ) },
       service_{ service },
       path_{ makePath( *service ) },
@@ -31,6 +37,27 @@ GattCharacteristic1::GattCharacteristic1( std::shared_ptr<GattService1> service,
       writeAcquired_{ false },
       notifyAcquired_{ false }
 {
+    if( hasAcquireWrite )
+    {
+        getCharacteristicObject().registerMethod("AcquireWrite").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireWrite(options); });    
+        getCharacteristicObject().registerProperty("WriteAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->WriteAcquired(); });
+    }
+    if( hasAcquireNotify )
+    {
+        getCharacteristicObject().registerMethod("AcquireNotify").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireNotify(options); });
+        getCharacteristicObject().registerProperty("NotifyAcquired").onInterface(INTERFACE_NAME).withGetter([this](){ return this->NotifyAcquired(); });
+    }
+    if( hasValue )
+    {
+        if( valueIsDirected )
+        {
+            getCharacteristicObject().registerProperty("DirectedValue").onInterface(INTERFACE_NAME).withGetter([this](){ return this->DirectedValue(); }); 
+        }
+        else
+        {
+            getCharacteristicObject().registerProperty("Value").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Value(); });       
+        }
+    }
 }
 
 GattCharacteristic1::~GattCharacteristic1()
@@ -90,14 +117,19 @@ void GattCharacteristic1::WriteValue(const std::vector<uint8_t>& value, const st
     value_ = value;
 }
 
-void GattCharacteristic1::AcquireWrite(const std::map<std::string, sdbus::Variant>& options)
+std::map<sdbus::ObjectPath, std::vector<uint8_t>> GattCharacteristic1::DirectedValue()
 {
-    std::cout << "WARNING: Method 'GattCharacteristic1::AcquireWrite' not overloaded! " << Util::optionsListToString( options ) << std::endl;
+    throw sdbus::Error("org.bluez.Error.NotSupported", "Property 'GattCharacteristic1::DirectedValue' not overloaded!");
 }
 
-void GattCharacteristic1::AcquireNotify(const std::map<std::string, sdbus::Variant>& options)
+std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireWrite(const std::map<std::string, sdbus::Variant>& options)
 {
-    std::cout << "WARNING: Method 'GattCharacteristic1::AcquireNotify' not overloaded! " << Util::optionsListToString( options ) << std::endl;
+    throw sdbus::Error("org.bluez.Error.NotSupported", "Method 'GattCharacteristic1::AcquireWrite' not overloaded!");
+}
+
+std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireNotify(const std::map<std::string, sdbus::Variant>& options)
+{
+    throw sdbus::Error("org.bluez.Error.NotSupported", "Method 'GattCharacteristic1::AcquireNotify' not overloaded!");
 }
 
 void GattCharacteristic1::StartNotify()
@@ -123,7 +155,7 @@ void GattCharacteristic1::addDescriptor( std::shared_ptr<GattDescriptor1> descri
     for( auto path : includes_ )
     {
         if( path == descPath )
-            return; // already registered
+            throw std::invalid_argument(std::string("GattCharacteristic1::addDescriptor '") + descPath + std::string("' already registered!"));
     }
 
     descriptors_.push_back( std::move(descriptor) );

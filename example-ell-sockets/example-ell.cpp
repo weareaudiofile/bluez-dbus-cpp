@@ -12,6 +12,10 @@
 #include <iostream>
 #include <signal.h>
 
+#include <ell/main.h>
+
+#include <thread>
+
 using namespace org::bluez;
 
 constexpr const char* BLUEZ_SERVICE = "org.bluez";
@@ -29,11 +33,27 @@ int main(int argc, char *argv[])
         std::cerr << std::endl << "error registering signal handler" << std::endl;
 
     constexpr const char* APP_PATH = "/org/bluez/example";
+    constexpr const char* SRV_PATH = "/org/bluez/example/service1";
     constexpr const char* ADV_PATH = "/org/bluez/example/advertisement1";
 
     constexpr const char* NAME = "ExampleBlueZ";
 
     std::shared_ptr<IConnection> connection{ std::move( sdbus::createSystemBusConnection() ) };
+
+    // ---- Boost Info ----
+    std::string output;
+    #if defined(BOOST_ASIO_HAS_IOCP)
+        output = "iocp" ;
+    #elif defined(BOOST_ASIO_HAS_EPOLL)
+        output = "epoll" ;
+    #elif defined(BOOST_ASIO_HAS_KQUEUE)
+        output = "kqueue" ;
+    #elif defined(BOOST_ASIO_HAS_DEV_POLL)
+        output = "/dev/poll" ;
+    #else
+        output = "select" ;
+    #endif
+    std::cout << output << std::endl;
 
     // ---- Adapter Info -----------------------------------------------------------------------------------------------
 
@@ -66,8 +86,8 @@ int main(int argc, char *argv[])
     ReadOnlyCharacteristic::createFinal( srv1, "2A28", "5.0" ); // sw rev
     ReadOnlyCharacteristic::createFinal( srv1, "2A29", "ACME Inc." ); // manufacturer
 
-    auto srv2 = std::make_shared<GattService1>( app, "serial", "368a3edf-514e-4f70-ba8f-2d0a5a62bc8c" );
-    SerialCharacteristic::create( srv2, "de0a7b0c-358f-4cef-b778-8fe9abf09d53" )
+    auto srv2 = std::make_shared<GattService1>( app, "serial", "368a3edf-514e-4f70-0000-2d0a5a62bc8c" );
+    SerialCharacteristic::create( srv2, "368a3edf-514e-4f70-0001-2d0a5a62bc8c" )
         .finalize();
 
     auto register_app_callback = [](const sdbus::Error* error)
@@ -124,6 +144,9 @@ int main(int argc, char *argv[])
 
     connection->enterProcessingLoopAsync();
 
+    l_main_init();
+    std::thread ell_thread( l_main_run );
+
     bool run = true;
     while( run) {
         char cmd;
@@ -137,5 +160,7 @@ int main(int argc, char *argv[])
             case 'q':
                 run = false;
         }
-    } 
+    }
+
+    l_main_quit();
 }

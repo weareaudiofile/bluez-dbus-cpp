@@ -30,7 +30,12 @@ class GattCharacteristic1 :
     static constexpr const char* INTERFACE_NAME = "org.bluez.GattCharacteristic1";
 
 public:
-    GattCharacteristic1( std::shared_ptr<GattService1> service, std::string uuid );
+    GattCharacteristic1( std::shared_ptr<GattService1> service,
+        std::string uuid,
+        bool hasAcquireWrite = false,
+        bool hasAcquireNotify = false,
+        bool hasValue = false,
+        bool valueIsDirected = false);
     virtual ~GattCharacteristic1();
 
     void addValue( std::string value );
@@ -40,6 +45,8 @@ public:
 protected:
     friend GattDescriptor1;
     friend GattService1;
+    void enableAcquireWrite(void);
+    void enableAcquireNotify(void);
     virtual void addDescriptor( std::shared_ptr<GattDescriptor1> descriptor );
     virtual void removeDescriptor( std::shared_ptr<GattDescriptor1> descriptor );
     const std::string& getPath() const;
@@ -115,7 +122,7 @@ protected:
      * 
      * @param options 
      */
-    virtual void AcquireWrite(const std::map<std::string, sdbus::Variant>& options);
+    virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireWrite(const std::map<std::string, sdbus::Variant>& options);
 
     /**
      * Acquire file descriptor and MTU for notify. Usage of
@@ -153,7 +160,7 @@ protected:
      *                  org.bluez.Error.NotSupported
      * 
      */
-    virtual void AcquireNotify(const std::map<std::string, sdbus::Variant>& options);
+    virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireNotify(const std::map<std::string, sdbus::Variant>& options);
 
     /**
      * Starts a notification session from this characteristic
@@ -189,6 +196,7 @@ protected:
     std::string UUID() override { return uuid_; }
     sdbus::ObjectPath Service() override;
     std::vector<uint8_t> Value() override { return value_; }
+    std::map<sdbus::ObjectPath, std::vector<uint8_t>> DirectedValue() override;
     bool Notifying() override { return notifyingSessions_ > 0; }
     std::vector<std::string> Flags() override { return flags_; }
     std::vector<sdbus::ObjectPath> Descriptors() override { return includes_; }
