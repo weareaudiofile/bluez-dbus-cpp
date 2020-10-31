@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <queue>
+#include <set>
 
 namespace org {
 namespace bluez {
@@ -75,19 +76,36 @@ protected:
         Notify( client );
     }
 
+    void StartNotify(const std::map<std::string, sdbus::Variant>& options) override
+    {
+        // insert client into our list
+        auto client = getClient( options );
+        notifying_.insert( client );
+        std::cout << "SerialCharacteristic::StartNotify '" << client->getPath() << "'" << std::endl;
+    }
+
+    void StopNotify(const std::map<std::string, sdbus::Variant>& options) override
+    {
+        // remove client from our list
+        auto client = getClient( options );
+        auto iter = notifying_.find( client );
+        notifying_.erase( iter );
+        std::cout << "SerialCharacteristic::StopNotify '" << client->getPath() << "'" << std::endl;
+    }
+
     void Notify( std::shared_ptr<SerialClient> client )
     {
         // in this example we always append a 'k' message to test the multi-packet aspect
         // that is part of the 'DirectedValue' BlueZ patch rev2 feature
         directedQueue_.insert( std::make_pair( client->getPath(), std::vector<std::vector<uint8_t>>{ client->getData(), std::vector<uint8_t>{ 'k' } } ) );
 
-        if( notifyingSessions_ > 0 )
+        if( notifying_.find( client ) != notifying_.end() )
         {
             emitPropertyChangedSignal( "DirectedValue" );
         }
     }
 
-    std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> DirectedValue()
+    std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> DirectedValue() override
     {
         std::cout << "DirectedValue()" << std::endl;
         return std::move(directedQueue_);
@@ -103,14 +121,27 @@ protected:
         auto iter = clients_.find( path );
         if( iter == clients_.end() )
         {
+            std::cout << "SerialCharacteristic::getClient - creating client '" << path << "'" << std::endl;
             auto client = std::make_shared<SerialClient>( path, usable_mtu, std::vector<uint8_t>() );
             iter = clients_.insert( std::make_pair( path, client ) ).first;
         }
         return iter->second;
     }
 
+    void removeClient(const std::map<std::string, sdbus::Variant>& options)
+    {
+        auto path = Util::getObjectPathFromOptions( options );
+        auto iter = clients_.find( path );
+        if( iter != clients_.end() )
+        {
+            std::cout << "SerialCharacteristic::removeClient '" << path << "'" << std::endl;
+            clients_.erase( iter );
+        }
+    }
+
     std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> directedQueue_;
     std::map<sdbus::ObjectPath, std::shared_ptr<SerialClient>> clients_;
+    std::set<std::shared_ptr<SerialClient>> notifying_;
 };
 
 }}

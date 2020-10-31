@@ -26,8 +26,8 @@ protected:
         object_.registerMethod("WriteValue").onInterface(INTERFACE_NAME).implementedAs([this](const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& options){ return this->WriteValue(value, options); });
         // object_.registerMethod("AcquireWrite").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireWrite(options); });
         // object_.registerMethod("AcquireNotify").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->AcquireNotify(options); });
-        object_.registerMethod("StartNotify").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->StartNotify(); });
-        object_.registerMethod("StopNotify").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->StopNotify(); });
+        object_.registerMethod("StartNotify").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->StartNotify(options); });
+        object_.registerMethod("StopNotify").onInterface(INTERFACE_NAME).implementedAs([this](const std::map<std::string, sdbus::Variant>& options){ return this->StopNotify(options); });
         object_.registerMethod("Confirm").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->Confirm(); });
         object_.registerProperty("UUID").onInterface(INTERFACE_NAME).withGetter([this](){ return this->UUID(); });
         object_.registerProperty("Service").onInterface(INTERFACE_NAME).withGetter([this](){ return this->Service(); });
@@ -48,8 +48,8 @@ private:
     virtual void WriteValue(const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& options) = 0;
     virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireWrite(const std::map<std::string, sdbus::Variant>& options) = 0;
     virtual std::tuple<sdbus::UnixFd, uint16_t> AcquireNotify(const std::map<std::string, sdbus::Variant>& options) = 0;
-    virtual void StartNotify() = 0;
-    virtual void StopNotify() = 0;
+    virtual void StartNotify(const std::map<std::string, sdbus::Variant>& options) = 0;
+    virtual void StopNotify(const std::map<std::string, sdbus::Variant>& options) = 0;
     virtual void Confirm() = 0;
 
 private:

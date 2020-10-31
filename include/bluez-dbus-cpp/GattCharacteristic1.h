@@ -172,7 +172,7 @@ protected:
      *             org.bluez.Error.NotSupported
      * 
      */
-    virtual void StartNotify();
+    virtual void StartNotify(const std::map<std::string, sdbus::Variant>& options);
 
     /**
      * This method will cancel any previous StartNotify
@@ -182,7 +182,7 @@ protected:
      *
      * Possible Errors: org.bluez.Error.Failed
      */
-    virtual void StopNotify();
+    virtual void StopNotify(const std::map<std::string, sdbus::Variant>& options);
 
     /**
      * This method doesn't expect a reply so it is just a

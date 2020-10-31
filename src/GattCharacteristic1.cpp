@@ -132,12 +132,12 @@ std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireNotify(const std
     throw sdbus::Error("org.bluez.Error.NotSupported", "Method 'GattCharacteristic1::AcquireNotify' not overloaded!");
 }
 
-void GattCharacteristic1::StartNotify()
+void GattCharacteristic1::StartNotify(const std::map<std::string, sdbus::Variant>& options)
 {
     notifyingSessions_ += 1;
 }
 
-void GattCharacteristic1::StopNotify()
+void GattCharacteristic1::StopNotify(const std::map<std::string, sdbus::Variant>& options)
 {
     notifyingSessions_ -= 1;
 }
