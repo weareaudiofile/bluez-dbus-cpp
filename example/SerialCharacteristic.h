@@ -8,6 +8,7 @@
 
 #include <bluez-dbus-cpp/GattCharacteristicBuilder.h>
 #include <bluez-dbus-cpp/Client.h>
+#include <bluez-dbus-cpp/Device1.h>
 
 #include <iostream>
 #include <queue>
@@ -49,8 +50,9 @@ class SerialCharacteristic :
     public GattCharacteristicBuilder<GenericCharacteristic>
 {
 public:
-    SerialCharacteristic( std::shared_ptr<GattService1> service, std::string uuid )
-        : GattCharacteristicBuilder{ move(service), move(uuid), false, false, true, true }
+    SerialCharacteristic( std::shared_ptr<GattService1> service, std::shared_ptr<IConnection> connection, std::string uuid )
+        : GattCharacteristicBuilder{ move(service), move(uuid), false, false, true, true },
+          connection_{ std::move(connection) }
     {
         flags_ = { "notify", "write-without-response" };
     }
@@ -72,6 +74,15 @@ protected:
     {
         std::cout << "Serial TX: " << std::string( value.begin(), value.end() ) << std::endl;
         auto client = getClient( options );
+        if( client == lastClient_ )
+        {
+            if(lastDevice_
+                && value.size() > 0 
+                && value[0] = 'd' )
+            {
+                lastClient_->Disconnect();
+            }
+        }
         client->setData( std::move(value) );
         Notify( client );
     }
@@ -124,6 +135,8 @@ protected:
             std::cout << "SerialCharacteristic::getClient - creating client '" << path << "'" << std::endl;
             auto client = std::make_shared<SerialClient>( path, usable_mtu, std::vector<uint8_t>() );
             iter = clients_.insert( std::make_pair( path, client ) ).first;
+            lastClient_ = iter->second;
+            lastDevice_ = std::make_shared<Device1>( *connection_, "org.bluez", path );
         }
         return iter->second;
     }
@@ -142,6 +155,9 @@ protected:
     std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> directedQueue_;
     std::map<sdbus::ObjectPath, std::shared_ptr<SerialClient>> clients_;
     std::set<std::shared_ptr<SerialClient>> notifying_;
+    std::shared_ptr<SerialClient> lastClient_;
+    std::shared_ptr<Device1> lastDevice_;
+    std::shared_ptr<IConnection> connection_;
 };
 
 }}
