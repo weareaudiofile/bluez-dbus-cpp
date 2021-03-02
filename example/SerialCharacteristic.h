@@ -57,9 +57,9 @@ public:
         flags_ = { "notify", "write-without-response" };
     }
 
-    static SerialCharacteristic& create(std::shared_ptr<GattService1> service, std::string uuid)
+    static SerialCharacteristic& create(std::shared_ptr<GattService1> service, std::shared_ptr<IConnection> connection, std::string uuid)
     {
-        auto self = new SerialCharacteristic( move(service), move(uuid) );
+        auto self = new SerialCharacteristic( move(service), move(connection), move(uuid) );
         return *self;
     }
 
