@@ -78,9 +78,10 @@ protected:
         {
             if(lastDevice_
                 && value.size() > 0 
-                && value[0] = 'd' )
+                && value[0] == 'd' )
             {
-                lastClient_->Disconnect();
+                std::cout << "Disconnecting from client" << std::endl;
+                lastDevice_->Disconnect();
             }
         }
         client->setData( std::move(value) );
@@ -98,10 +99,12 @@ protected:
     void StopNotify(const std::map<std::string, sdbus::Variant>& options) override
     {
         // remove client from our list
-        auto client = getClient( options );
-        auto iter = notifying_.find( client );
-        notifying_.erase( iter );
-        std::cout << "SerialCharacteristic::StopNotify '" << client->getPath() << "'" << std::endl;
+        if (options.size()!=0){         //When disconnecting from device, StopNotify is called with an empty options map
+            auto client = getClient( options );
+            auto iter = notifying_.find( client );
+            notifying_.erase( iter );
+            std::cout << "SerialCharacteristic::StopNotify '" << client->getPath() << "'" << std::endl;
+        }
     }
 
     void Notify( std::shared_ptr<SerialClient> client )
