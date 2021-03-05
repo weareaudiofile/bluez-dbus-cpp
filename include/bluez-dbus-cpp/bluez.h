@@ -5,6 +5,7 @@
 //
 
 #include "Adapter1.h"
+#include "Device1.h"
 #include "GattManager1.h"
 #include "LEAdvertisingManager1.h"
 
