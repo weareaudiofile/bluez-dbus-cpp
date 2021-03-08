@@ -71,6 +71,7 @@ GattCharacteristic1::~GattCharacteristic1()
 void GattCharacteristic1::addValue( std::string value )
 {
     value_.assign( value.begin(), value.end() );
+    emitPropertyChangedSignal("Value");
 }
 
 void GattCharacteristic1::addValue( std::vector<uint8_t> value )

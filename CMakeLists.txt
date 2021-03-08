@@ -74,16 +74,21 @@ set( BLUEZ_SOURCES
 	"${BLUEZ_SOURCE_DIR}/GattDescriptor1.cpp"
 	"${BLUEZ_SOURCE_DIR}/Util.cpp" )
 
+option(BUILD_SHARED_LIBS "Build shared libraries (.so) instead of static ones (.a)" ON)
 
-add_library( bluez-dbus-cpp SHARED
-	${BLUEZ_SOURCES}
-	${BLUEZ_HEADERS} )
+if(BUILD_SHARED_LIBS)
+	add_library( bluez-dbus-cpp SHARED
+		${BLUEZ_SOURCES}
+		${BLUEZ_HEADERS} )
+else()
+	add_library( bluez-dbus-cpp STATIC
+		${BLUEZ_SOURCES}
+		${BLUEZ_HEADERS} )
+endif()
 
 target_include_directories( bluez-dbus-cpp PUBLIC 	
 							$<BUILD_INTERFACE:${BLUEZ_HEADER_DIR}>
 							$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> )
-
-option(BUILD_SHARED_LIBS "Build shared libraries (.so) instead of static ones (.a)" ON)
 
 if(DEFINED BUILD_SHARED_LIBS)
     set_target_properties(bluez-dbus-cpp PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS})
@@ -96,8 +101,12 @@ set_target_properties(bluez-dbus-cpp
 					OUTPUT_NAME "bluez-dbus-cpp")
 
 # Link up
-find_package(sdbus-c++ REQUIRED)
-target_link_libraries( bluez-dbus-cpp PUBLIC SDBusCpp::sdbus-c++)
+find_package(sdbus-c++)
+if(sdbus-c++_FOUND)
+    target_link_libraries( bluez-dbus-cpp PUBLIC SDBusCpp::sdbus-c++)
+else()
+    target_link_libraries( bluez-dbus-cpp PUBLIC sdbus-c++)
+endif()
 
 #-------------------------------
 # INSTALL
