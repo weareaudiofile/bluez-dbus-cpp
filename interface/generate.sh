@@ -13,6 +13,7 @@ XML2CPP=sdbus-c++-xml2cpp
 
 # Clients
 ${XML2CPP} Adapter1.xml --proxy=${PROXY}/Adapter1_proxy.h
+${XML2CPP} AgentManager1.xml --proxy=${PROXY}/AgentManager1_proxy.h
 ${XML2CPP} Device1.xml --proxy=${PROXY}/Device1_proxy.h
 ${XML2CPP} Media1.xml --proxy=${PROXY}/Media1_proxy.h
 ${XML2CPP} NetworkServer1.xml --proxy=${PROXY}/NetworkServer1_proxy.h
@@ -22,6 +23,7 @@ ${XML2CPP} ProfileManager1.xml --proxy=${PROXY}/ProfileManager1_proxy.h
 ${XML2CPP} HealthManager1.xml --proxy=${PROXY}/HealthManager1_proxy.h
 
 # Services
+${XML2CPP} Agent1.xml --adaptor=${ADAPTOR}/Agent1_adaptor.h
 ${XML2CPP} GattService1.xml --adaptor=${ADAPTOR}/GattService1_adaptor.h
 ${XML2CPP} GattCharacteristic1.xml --adaptor=${ADAPTOR}/GattCharacteristic1_adaptor.h
 ${XML2CPP} GattDescriptor1.xml --adaptor=${ADAPTOR}/GattDescriptor1_adaptor.h

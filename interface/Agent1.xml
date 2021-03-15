@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright Audiofile LLC 2019 - 2020.
+ Distributed under the Boost Software License, Version 1.0.
+ (See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt)
+-->
+<node>
+    <interface name="org.bluez.Agent1">
+        <method name="Release"/>
+        <method name="RequestPinCode">
+            <arg name="device" type="o" direction="in"/>
+            <arg name="pincode" type="s" direction="out"/>
+        </method>
+        <method name="DisplayPinCode">
+            <arg name="device" type="o" direction="in"/>
+            <arg name="pincode" type="s" direction="in"/>
+        </method>
+        <method name="RequestPasskey">
+            <arg name="device" type="o" direction="in"/>
+            <arg name="passkey" type="u" direction="out"/>
+        </method>
+        <method name="DisplayPasskey">
+            <arg name="device" type="o" direction="in"/>
+            <arg name="passkey" type="u" direction="in"/>
+            <arg name="entered" type="q" direction="in"/>
+        </method>
+        <method name="RequestAuthorization">
+            <arg name="device" type="o" direction="in"/>
+        </method>
+        <method name="AuthorizeService">
+            <arg name="device" type="o" direction="in"/>
+            <arg name="uuid" type="s" direction="in"/>
+        </method>
+        <method name="Cancel"/>
+    </interface>
+</node>
