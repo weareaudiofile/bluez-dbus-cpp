@@ -27,6 +27,7 @@ protected:
         object_.registerMethod("DisplayPinCode").onInterface(INTERFACE_NAME).implementedAs([this](const sdbus::ObjectPath& device, const std::string& pincode){ return this->DisplayPinCode(device, pincode); });
         object_.registerMethod("RequestPasskey").onInterface(INTERFACE_NAME).implementedAs([this](const sdbus::ObjectPath& device){ return this->RequestPasskey(device); });
         object_.registerMethod("DisplayPasskey").onInterface(INTERFACE_NAME).implementedAs([this](const sdbus::ObjectPath& device, const uint32_t& passkey, const uint16_t& entered){ return this->DisplayPasskey(device, passkey, entered); });
+        object_.registerMethod("RequestConfirmation").onInterface(INTERFACE_NAME).implementedAs([this](const sdbus::ObjectPath& device, const uint32_t& passkey){ return this->RequestConfirmation(device, passkey); });
         object_.registerMethod("RequestAuthorization").onInterface(INTERFACE_NAME).implementedAs([this](const sdbus::ObjectPath& device){ return this->RequestAuthorization(device); });
         object_.registerMethod("AuthorizeService").onInterface(INTERFACE_NAME).implementedAs([this](const sdbus::ObjectPath& device, const std::string& uuid){ return this->AuthorizeService(device, uuid); });
         object_.registerMethod("Cancel").onInterface(INTERFACE_NAME).implementedAs([this](){ return this->Cancel(); });
@@ -40,6 +41,7 @@ private:
     virtual void DisplayPinCode(const sdbus::ObjectPath& device, const std::string& pincode) = 0;
     virtual uint32_t RequestPasskey(const sdbus::ObjectPath& device) = 0;
     virtual void DisplayPasskey(const sdbus::ObjectPath& device, const uint32_t& passkey, const uint16_t& entered) = 0;
+    virtual void RequestConfirmation(const sdbus::ObjectPath& device, const uint32_t& passkey) = 0;
     virtual void RequestAuthorization(const sdbus::ObjectPath& device) = 0;
     virtual void AuthorizeService(const sdbus::ObjectPath& device, const std::string& uuid) = 0;
     virtual void Cancel() = 0;

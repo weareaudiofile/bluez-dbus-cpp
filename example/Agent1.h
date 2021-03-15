@@ -65,9 +65,14 @@ protected:
         std::cout << "Agent1::DisplayPasskey(" << device << "," << passkey << "," << entered << ")" << std::endl;
     }
 
+    void RequestConfirmation(const sdbus::ObjectPath& device, const uint32_t& passkey) override
+    {
+        std::cout << "Agent1::RequestConfirmation(" << device << ", " << passkey << ")" << std::endl;
+    }
+
     void RequestAuthorization(const sdbus::ObjectPath& device) override
     {
-        std::cout << "Agent1::RequestPasskey(" << device << ") returning 0" << std::endl;
+        std::cout << "Agent1::RequestAuthorization(" << device << ")" << std::endl;
     }
 
     void AuthorizeService(const sdbus::ObjectPath& device, const std::string& uuid) override
