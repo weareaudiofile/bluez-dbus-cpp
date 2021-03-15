@@ -55,6 +55,11 @@ int main(int argc, char *argv[])
 
     std::cout << std::endl;
 
+    // ---- Register Agent ---------------------------------------------------------------------------------------------
+    AgentManager1 agentManager{ *connection, BLUEZ_SERVICE, "/org/bluez" };
+    Agent1 agent{ connection, "/org/bluez/example/agent1" };
+    agentManager.RegisterAgent( "/org/bluez/example/agent1", "NoInputNoOutput" );
+
     // ---- Services ---------------------------------------------------------------------------------------------------
     GattManager1 gattMgr{ connection, BLUEZ_SERVICE, DEVICE0 };
     auto app =  std::make_shared<GattApplication1>( connection, APP_PATH );
