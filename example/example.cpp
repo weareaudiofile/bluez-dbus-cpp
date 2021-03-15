@@ -8,6 +8,8 @@
 #include <bluez-dbus-cpp/GenericCharacteristic.h>
 #include <bluez-dbus-cpp/ReadOnlyCharacteristic.h>
 #include "SerialCharacteristic.h"
+#include <bluez-dbus-cpp/AgentManager1.h>
+#include "Agent1.h"
 
 #include <iostream>
 #include <signal.h>

@@ -9,7 +9,6 @@
 #include "bluez-dbus-cpp/adaptor/Agent1_adaptor.h"
 
 #include <sdbus-c++/sdbus-c++.h>
-#include "Util.h"
 
 #include <iostream>
 
@@ -84,6 +83,6 @@ protected:
 protected:
     std::string path_;
     std::shared_ptr<IConnection> connection_;
-}
+};
 
 }}
