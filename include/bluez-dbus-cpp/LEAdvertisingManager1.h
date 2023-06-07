@@ -11,8 +11,6 @@
 namespace org {
 namespace bluez {
 
-using namespace sdbus;
-
 class LEAdvertisingManager1 :
     public std::enable_shared_from_this<LEAdvertisingManager1>
 {
@@ -20,7 +18,7 @@ class LEAdvertisingManager1 :
     static constexpr const char* INTERFACE_NAME = "org.bluez.LEAdvertisingManager1";
 
 public:
-    LEAdvertisingManager1( IConnection& connection, std::string destination, std::string objectPath )
+    LEAdvertisingManager1( sdbus::IConnection& connection, std::string destination, std::string objectPath )
         : proxy_{ createProxy( connection, std::move(destination), std::move(objectPath) ) }
     {
         proxy_->finishRegistration();
@@ -43,7 +41,7 @@ public:
         proxy_->callMethod("RegisterAdvertisement").onInterface(INTERFACE_NAME).withArguments( advertisementPath, options );
     }
 
-    AsyncMethodInvoker RegisterAdvertisementAsync( const sdbus::ObjectPath& advertisementPath, const std::map<std::string, sdbus::Variant>& options = {} )
+    sdbus::AsyncMethodInvoker RegisterAdvertisementAsync( const sdbus::ObjectPath& advertisementPath, const std::map<std::string, sdbus::Variant>& options = {} )
     {
         return proxy_->callMethodAsync("RegisterAdvertisement").onInterface(INTERFACE_NAME).withArguments( advertisementPath, options );
     }

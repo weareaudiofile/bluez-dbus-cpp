@@ -116,7 +116,7 @@ const std::string& GattService1::getPath() const
     return path_;
 }
 
-std::shared_ptr<IConnection> GattService1::getConnection() const
+std::shared_ptr<sdbus::IConnection> GattService1::getConnection() const
 {
     return app_->getConnection();
 }

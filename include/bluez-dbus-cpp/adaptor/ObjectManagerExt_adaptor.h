@@ -14,7 +14,7 @@
 namespace org {
 namespace bluez {
 
-class ObjectManagerExt_adaptor : public ObjectManager_adaptor
+class ObjectManagerExt_adaptor : public sdbus::ObjectManager_adaptor
 {
 public:
     static constexpr const char* INTERFACE_NAME = "org.freedesktop.DBus.ObjectManager";

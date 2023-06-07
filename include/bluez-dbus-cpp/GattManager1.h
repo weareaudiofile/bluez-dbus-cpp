@@ -11,8 +11,6 @@
 namespace org {
 namespace bluez {
 
-using namespace sdbus;
-
 class GattManager1 :
     public std::enable_shared_from_this<GattManager1>
 {
@@ -20,7 +18,7 @@ class GattManager1 :
     static constexpr const char* INTERFACE_NAME = "org.bluez.GattManager1";
 
 public:
-    GattManager1( IConnection& connection, std::string destination, std::string objectPath )
+    GattManager1( sdbus::IConnection& connection, std::string destination, std::string objectPath )
         : proxy_{ createProxy( connection, std::move(destination), std::move(objectPath) ) }
     {
         proxy_->finishRegistration();
@@ -43,7 +41,7 @@ public:
         proxy_->callMethod("RegisterApplication").onInterface(INTERFACE_NAME).withArguments(application, options);
     }
 
-    AsyncMethodInvoker RegisterApplicationAsync( const sdbus::ObjectPath& application, const std::map<std::string, sdbus::Variant>& options )
+    sdbus::AsyncMethodInvoker RegisterApplicationAsync( const sdbus::ObjectPath& application, const std::map<std::string, sdbus::Variant>& options )
     {
         return proxy_->callMethodAsync("RegisterApplication").onInterface(INTERFACE_NAME).withArguments(application, options);
     }

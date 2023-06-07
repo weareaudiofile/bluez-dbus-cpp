@@ -190,7 +190,7 @@ const std::string& GattCharacteristic1::getPath() const
     return path_;
 }
 
-const std::shared_ptr<IConnection> GattCharacteristic1::getConnection() const
+const std::shared_ptr<sdbus::IConnection> GattCharacteristic1::getConnection() const
 {
     return service_->getConnection();
 }

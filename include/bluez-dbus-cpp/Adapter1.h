@@ -11,13 +11,11 @@
 namespace org {
 namespace bluez {
 
-using namespace sdbus;
-
-class Adapter1 : public ProxyInterfaces<org::bluez::Adapter1_proxy>
+class Adapter1 : public sdbus::ProxyInterfaces<org::bluez::Adapter1_proxy>
 {
 public:
-    Adapter1( IConnection& connection, std::string destination, std::string objectPath )
-        : ProxyInterfaces{ connection, std::move(destination), std::move(objectPath) }
+    Adapter1( sdbus::IConnection& connection, std::string destination, std::string objectPath )
+        : sdbus::ProxyInterfaces<org::bluez::Adapter1_proxy>{ connection, std::move(destination), std::move(objectPath) }
     {
         registerProxy();
     }

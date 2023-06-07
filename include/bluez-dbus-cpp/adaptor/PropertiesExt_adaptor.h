@@ -8,9 +8,7 @@
 
 #include <sdbus-c++/sdbus-c++.h>
 
-using namespace sdbus;
-
-class PropertiesExt_adaptor : public Properties_adaptor
+class PropertiesExt_adaptor : public sdbus::Properties_adaptor
 {
 public:
     PropertiesExt_adaptor(sdbus::IObject& object)

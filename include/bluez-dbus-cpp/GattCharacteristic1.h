@@ -21,10 +21,8 @@ namespace bluez {
 // Forward declarations
 class GattService1;
 
-using namespace sdbus;
-
 class GattCharacteristic1 :
-    public AdaptorInterfaces<GattCharacteristic1_adaptor, PropertiesExt_adaptor>,
+    public sdbus::AdaptorInterfaces<GattCharacteristic1_adaptor, PropertiesExt_adaptor>,
     public std::enable_shared_from_this<GattCharacteristic1>
 {
     static constexpr const char* INTERFACE_NAME = "org.bluez.GattCharacteristic1";
@@ -50,7 +48,7 @@ protected:
     virtual void addDescriptor( std::shared_ptr<GattDescriptor1> descriptor );
     virtual void removeDescriptor( std::shared_ptr<GattDescriptor1> descriptor );
     const std::string& getPath() const;
-    const std::shared_ptr<IConnection> getConnection() const;
+    const std::shared_ptr<sdbus::IConnection> getConnection() const;
 
 protected:
     /**
