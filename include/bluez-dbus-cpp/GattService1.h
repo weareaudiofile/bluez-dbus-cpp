@@ -18,10 +18,8 @@ namespace bluez {
 // Forward declarations
 class GattApplication1;
 
-using namespace sdbus;
-
 class GattService1 :
-    public AdaptorInterfaces<GattService1_adaptor, PropertiesExt_adaptor>,
+    public sdbus::AdaptorInterfaces<GattService1_adaptor, PropertiesExt_adaptor>,
     public std::enable_shared_from_this<GattService1>
 {
     GattService1( const GattService1& service ) = delete;
@@ -40,7 +38,7 @@ public:
     virtual void addSubService( std::shared_ptr<GattService1> service );
     virtual void removeSubService( std::shared_ptr<GattService1> service );
     virtual const std::string& getPath() const final;
-    virtual std::shared_ptr<IConnection> getConnection() const final;
+    virtual std::shared_ptr<sdbus::IConnection> getConnection() const final;
     virtual int nextCharacteristicIndex() const final;
 
 public:

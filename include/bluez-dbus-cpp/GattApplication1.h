@@ -17,14 +17,12 @@
 namespace org {
 namespace bluez {
 
-using namespace sdbus;
-
 class GattApplication1 :
-    public AdaptorInterfaces<ObjectManager_adaptor>,
+    public sdbus::AdaptorInterfaces<sdbus::ObjectManager_adaptor>,
     public std::enable_shared_from_this<GattApplication1>
 {
 public:
-    GattApplication1( std::shared_ptr<IConnection> connection, std::string objectPath )
+    GattApplication1( std::shared_ptr<sdbus::IConnection> connection, std::string objectPath )
         : AdaptorInterfaces{ *connection, objectPath },
           connection_{ connection },
           path_{ std::move(objectPath) }
@@ -40,7 +38,7 @@ public:
 public:
     void addService( std::shared_ptr<GattService1> service )
     {
-        for( auto serv : services_ )
+        for( const auto & serv : services_ )
         {
             if( serv == service )
                 throw std::invalid_argument(std::string("GattApplication::addService '") + service->getPath() + std::string("' already registered!"));
@@ -68,7 +66,7 @@ public:
         return path_;
     }
 
-    std::shared_ptr<IConnection> getConnection() const
+    std::shared_ptr<sdbus::IConnection> getConnection() const
     {
         return connection_;
     }
@@ -87,7 +85,7 @@ public:
 
 protected:
     std::string path_;
-    std::shared_ptr<IConnection> connection_;
+    std::shared_ptr<sdbus::IConnection> connection_;
     std::vector<std::shared_ptr<GattService1>> services_;
 };
 

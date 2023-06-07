@@ -17,10 +17,8 @@ namespace bluez {
 // Forward declarations
 class GattCharacteristic1;
 
-using namespace sdbus;
-
 class GattDescriptor1 :
-    public AdaptorInterfaces<GattDescriptor1_adaptor, PropertiesExt_adaptor>,
+    public sdbus::AdaptorInterfaces<GattDescriptor1_adaptor, PropertiesExt_adaptor>,
     public std::enable_shared_from_this<GattDescriptor1>
 {
 public:

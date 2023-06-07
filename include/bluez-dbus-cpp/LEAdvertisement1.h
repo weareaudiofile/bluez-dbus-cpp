@@ -13,8 +13,6 @@
 namespace org {
 namespace bluez {
 
-using namespace sdbus;
-
 class LEAdvertisement1 :
     public std::enable_shared_from_this<LEAdvertisement1>
 {
@@ -26,7 +24,7 @@ class LEAdvertisement1 :
     static constexpr const char* INTERFACE_NAME = "org.bluez.LEAdvertisement1";
 
 public:
-    LEAdvertisement1( IConnection& connection, std::string objectPath )
+    LEAdvertisement1( sdbus::IConnection& connection, std::string objectPath )
         : object_{ createObject(connection, objectPath) },
           path_{ std::move(objectPath) }
     {
@@ -43,7 +41,7 @@ public:
         return path_;
     }
 
-    static LEAdvertisement1& create( IConnection& connection, std::string objectPath )
+    static LEAdvertisement1& create( sdbus::IConnection& connection, std::string objectPath )
     {
         auto self = new LEAdvertisement1{ connection, std::move(objectPath) };
         return *self;
