@@ -53,7 +53,7 @@ GattService1::~GattService1()
 
 void GattService1::addCharacteristic( std::shared_ptr<GattCharacteristic1> characteristic )
 {
-    for( auto chrc : characteristics_ )
+    for( const auto & chrc : characteristics_ )
     {
         if( chrc == characteristic )
             throw std::invalid_argument(std::string("GattService1::addCharacteristic '") + characteristic->getPath() + std::string("' already registered!"));
@@ -78,7 +78,7 @@ void GattService1::addSubService( std::shared_ptr<GattService1> service )
 {
     const std::string& srvPath = service->getPath();
 
-    for( auto path : includes_ )
+    for( const auto & path : includes_ )
     {
         if( path == srvPath )
             throw std::invalid_argument(std::string("GattService1::addSubService '") + srvPath + std::string("' already registered!"));

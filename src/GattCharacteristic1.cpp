@@ -107,12 +107,12 @@ void GattCharacteristic1::addFlag( std::string flag )
 
 // ---- Default Handlers -------------------------------------------------------
 
-std::vector<uint8_t> GattCharacteristic1::ReadValue(const std::map<std::string, sdbus::Variant>& options)
+std::vector<uint8_t> GattCharacteristic1::ReadValue(const std::map<std::string, sdbus::Variant>& /*options*/)
 {
     return value_;
 }
 
-void GattCharacteristic1::WriteValue(const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& options)
+void GattCharacteristic1::WriteValue(const std::vector<uint8_t>& value, const std::map<std::string, sdbus::Variant>& /*options*/)
 {
     value_ = value;
 }
@@ -122,22 +122,22 @@ std::map<sdbus::ObjectPath, std::vector<std::vector<uint8_t>>> GattCharacteristi
     throw sdbus::Error("org.bluez.Error.NotSupported", "Property 'GattCharacteristic1::DirectedValue' not overloaded!");
 }
 
-std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireWrite(const std::map<std::string, sdbus::Variant>& options)
+std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireWrite(const std::map<std::string, sdbus::Variant>& /*options*/)
 {
     throw sdbus::Error("org.bluez.Error.NotSupported", "Method 'GattCharacteristic1::AcquireWrite' not overloaded!");
 }
 
-std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireNotify(const std::map<std::string, sdbus::Variant>& options)
+std::tuple<sdbus::UnixFd, uint16_t> GattCharacteristic1::AcquireNotify(const std::map<std::string, sdbus::Variant>& /*options*/)
 {
     throw sdbus::Error("org.bluez.Error.NotSupported", "Method 'GattCharacteristic1::AcquireNotify' not overloaded!");
 }
 
-void GattCharacteristic1::StartNotify(const std::map<std::string, sdbus::Variant>& options)
+void GattCharacteristic1::StartNotify(const std::map<std::string, sdbus::Variant>& /*options*/)
 {
     notifyingSessions_ += 1;
 }
 
-void GattCharacteristic1::StopNotify(const std::map<std::string, sdbus::Variant>& options)
+void GattCharacteristic1::StopNotify(const std::map<std::string, sdbus::Variant>& /*options*/)
 {
     notifyingSessions_ -= 1;
 }
@@ -152,7 +152,7 @@ void GattCharacteristic1::addDescriptor( std::shared_ptr<GattDescriptor1> descri
 {
     const std::string& descPath = descriptor->getPath();
 
-    for( auto path : includes_ )
+    for( const auto & path : includes_ )
     {
         if( path == descPath )
             throw std::invalid_argument(std::string("GattCharacteristic1::addDescriptor '") + descPath + std::string("' already registered!"));

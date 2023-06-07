@@ -38,7 +38,7 @@ public:
 public:
     void addService( std::shared_ptr<GattService1> service )
     {
-        for( auto serv : services_ )
+        for( const auto & serv : services_ )
         {
             if( serv == service )
                 throw std::invalid_argument(std::string("GattApplication::addService '") + service->getPath() + std::string("' already registered!"));
